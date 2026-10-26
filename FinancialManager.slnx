@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/FinancialManager.Api/FinancialManager.Api.csproj" />
+    <Project Path="src/Backend/FinancialManager.Application/FinancialManager.Application.csproj" />
+    <Project Path="src/Backend/FinancialManager.Domain/FinancialManager.Domain.csproj" />
+    <Project Path="src/Backend/FinancialManager.Infrastructure/FinancialManager.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/FinancialManager.Communication/FinancialManager.Communication.csproj" />
+    <Project Path="src/Shared/FinancialManager.Exception/FinancialManager.Exception.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>
