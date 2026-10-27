@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using FinancialManager.Api.Converters;
 using FinancialManager.Api.Filters;
 using FinancialManager.Application;
 using FinancialManager.Infrastructure;
@@ -13,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new StringConverter()));
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -34,6 +35,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 });
 
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>()); 
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
