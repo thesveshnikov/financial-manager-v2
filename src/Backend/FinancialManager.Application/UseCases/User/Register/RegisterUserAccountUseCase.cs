@@ -5,8 +5,17 @@ namespace FinancialManager.Application.UseCases.User.Register;
 
 public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 {
-    public Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserAccountJson request)
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserAccountJson request)
     {
-        throw new NotImplementedException();
+        await ValidateAndThrowOnFailures(request);
+
+        return new ResponseRegisteredUserJson {};
+    }
+
+    private async Task ValidateAndThrowOnFailures(RequestRegisterUserAccountJson request)
+    {
+        var validator = new RegisterUserAccountValidator();
+
+        var result = validator.Validate(request);
     }
 }
