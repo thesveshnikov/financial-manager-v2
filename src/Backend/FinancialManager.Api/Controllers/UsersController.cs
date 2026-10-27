@@ -14,8 +14,8 @@ public class UsersController : ControllerBase
         [FromServices] IRegisterUserAccountUseCase useCase,
         [FromBody] RequestRegisterUserAccountJson request)
     {
-        await useCase.Execute(request);
+        var response = await useCase.Execute(request);
         
-        return Created();
+        return Created(string.Empty, response);
     }
 }
