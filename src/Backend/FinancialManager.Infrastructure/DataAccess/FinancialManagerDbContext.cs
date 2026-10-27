@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Infrastructure.DataAccess;
 
-internal class MyRecipeBookDbContext : DbContext
+internal class FinancialManagerDbContext : DbContext
 {
-    public MyRecipeBookDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
+    public FinancialManagerDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
 
     public DbSet<User> Users { get; set; }
 }
