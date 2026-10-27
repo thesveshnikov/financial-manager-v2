@@ -68,5 +68,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_EMAIL_INVALID", resourceCulture);
             }
         }
+        
+        public static string UNKNOWN_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
     }
 }

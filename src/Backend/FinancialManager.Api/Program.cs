@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using FinancialManager.Api.Filters;
 using FinancialManager.Application;
 using FinancialManager.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
     options.RequestCultureProviders = [ new AcceptLanguageHeaderRequestCultureProvider() ];
 });
+
+builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>()); 
 
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
