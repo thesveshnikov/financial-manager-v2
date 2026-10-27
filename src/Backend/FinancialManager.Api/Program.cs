@@ -1,3 +1,5 @@
+using FinancialManager.Application;
+using FinancialManager.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

@@ -10,4 +10,10 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.14" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Shared\FinancialManager.Communication\FinancialManager.Communication.csproj" />
+      <ProjectReference Include="..\..\Shared\FinancialManager.Exception\FinancialManager.Exception.csproj" />
+      <ProjectReference Include="..\FinancialManager.Infrastructure\FinancialManager.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

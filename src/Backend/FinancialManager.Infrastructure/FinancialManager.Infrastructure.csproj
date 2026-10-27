@@ -10,4 +10,8 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.14" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FinancialManager.Domain\FinancialManager.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

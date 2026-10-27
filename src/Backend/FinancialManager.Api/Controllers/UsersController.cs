@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Communication.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,12 @@ namespace FinancialManager.Api.Controllers;
 public class UsersController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register([FromBody] RequestRegisterUserAccountJson request)
+    public async Task<IActionResult> Register(
+        [FromServices] IRegisterUserAccountUseCase useCase,
+        [FromBody] RequestRegisterUserAccountJson request)
     {
+        await useCase.Execute(request);
+        
         return Created();
     }
 }
