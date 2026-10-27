@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using System.Globalization;
 using FinancialManager.Api.Converters;
 using FinancialManager.Api.Filters;
 using FinancialManager.Application;
 using FinancialManager.Infrastructure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
