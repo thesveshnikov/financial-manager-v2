@@ -1,9 +1,10 @@
 using FinancialManager.Domain.Entities;
 using FinancialManager.Domain.Repositories.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Infrastructure.DataAccess.Repositories;
 
-internal sealed class UserRepository : IUserWriteOnlyRepository
+internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
 {
     private readonly FinancialManagerDbContext _dbContext;
 
@@ -13,4 +14,6 @@ internal sealed class UserRepository : IUserWriteOnlyRepository
     }
     
     public async Task Add(User user) => await _dbContext.Users.AddAsync(user);
+
+    public async Task<bool> ExistsActiveUserWithEmail(string email) => await _dbContext.Users.AnyAsync(user => user.Active && user.Email.Equals(email));
 }

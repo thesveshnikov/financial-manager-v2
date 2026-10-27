@@ -3,7 +3,9 @@ using FinancialManager.Communication.Responses;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
+using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
+using FluentValidation.Results;
 using Mapster;
 
 namespace FinancialManager.Application.UseCases.User.Register;
@@ -11,16 +13,19 @@ namespace FinancialManager.Application.UseCases.User.Register;
 public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 {
     private readonly IPasswordHasher _passwordHasher;
-    private readonly IUserWriteOnlyRepository _repository;
+    private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+    private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     
     public RegisterUserAccountUseCase(
         IPasswordHasher passwordHasher,
-        IUserWriteOnlyRepository repository,
+        IUserWriteOnlyRepository writeOnlyRepository,
+        IUserReadOnlyRepository readOnlyRepository,
         IUnitOfWork unitOfWork)
     {
         _passwordHasher = passwordHasher;
-        _repository = repository;
+        _writeOnlyRepository = writeOnlyRepository;
+        _readOnlyRepository = readOnlyRepository;
         _unitOfWork = unitOfWork;
     }
     
@@ -32,7 +37,7 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 
         user.Password = _passwordHasher.HashPassword(request.Password);
 
-        await _repository.Add(user);
+        await _writeOnlyRepository.Add(user);
         
         await _unitOfWork.Commit();
         
@@ -48,6 +53,12 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 
         var result = validator.Validate(request);
 
+        var emailExists = await _readOnlyRepository.ExistsActiveUserWithEmail(request.Email);
+        if (emailExists)
+        {
+            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.VALIDATION_EMAIL_ALREADY_EXISTS));
+        }
+        
         if (result.IsValid == false)
         {
             var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
