@@ -80,5 +80,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_EMAIL_ALREADY_EXISTS", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_DATE_OF_BIRTH_INVALID {
+            get {
+                return ResourceManager.GetString("VALIDATION_DATE_OF_BIRTH_INVALID", resourceCulture);
+            }
+        }
     }
 }

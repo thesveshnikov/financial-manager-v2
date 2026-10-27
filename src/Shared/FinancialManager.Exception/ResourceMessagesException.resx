@@ -36,4 +36,7 @@
     <data name="VALIDATION_EMAIL_ALREADY_EXISTS" xml:space="preserve">
         <value>This email is already in use.</value>
     </data>
+    <data name="VALIDATION_DATE_OF_BIRTH_INVALID" xml:space="preserve">
+        <value>This date doesn't looks right.</value>
+    </data>
 </root>
