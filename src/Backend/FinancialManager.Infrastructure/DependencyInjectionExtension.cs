@@ -1,3 +1,4 @@
+using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
 using FinancialManager.Infrastructure.DataAccess;
@@ -18,6 +19,8 @@ public static class DependencyInjectionExtension
             services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
 
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<FinancialManagerDbContext>(config =>
             {
