@@ -1,5 +1,6 @@
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
+using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
 using FinancialManager.Exception.ExceptionsBase;
 using Mapster;
@@ -9,10 +10,14 @@ namespace FinancialManager.Application.UseCases.User.Register;
 public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
 {
     private readonly IPasswordHasher _passwordHasher;
-
-    public RegisterUserAccountUseCase(IPasswordHasher passwordHasher)
+    private readonly IUserWriteOnlyRepository _repository;
+    
+    public RegisterUserAccountUseCase(
+        IPasswordHasher passwordHasher,
+        IUserWriteOnlyRepository repository)
     {
         _passwordHasher = passwordHasher;
+        _repository = repository;
     }
     
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserAccountJson request)
@@ -22,8 +27,14 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
         var user = request.Adapt<Domain.Entities.User>();
 
         user.Password = _passwordHasher.HashPassword(request.Password);
+
+        await _repository.Add(user);
         
-        return new ResponseRegisteredUserJson {};
+        return new ResponseRegisteredUserJson
+        {
+            Id = user.Id,
+            Name = user.Name
+        };
     }
 
     private async Task ValidateAndThrowOnFailures(RequestRegisterUserAccountJson request)

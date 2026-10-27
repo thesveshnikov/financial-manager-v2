@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Communication.Requests;
 using Microsoft.AspNetCore.Mvc;
