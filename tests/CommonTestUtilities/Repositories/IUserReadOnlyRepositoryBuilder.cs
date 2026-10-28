@@ -1,3 +1,4 @@
+using FinancialManager.Domain.Entities;
 using FinancialManager.Domain.Repositories.User;
 using Moq;
 
@@ -15,6 +16,16 @@ public class IUserReadOnlyRepositoryBuilder
     public void ExistsActiveUserWithEmail(string email)
     {
         _mock.Setup(repository => repository.ExistsActiveUserWithEmail(email)).ReturnsAsync(true);
+    }
+    
+    public void GetByEmail(User user)
+    {
+        _mock.Setup(repository => repository.GetByEmail(user.Email)).ReturnsAsync(user);
+    }
+    
+    public void GetById(User user)
+    {
+        _mock.Setup(repository => repository.GetById(user.Id)).ReturnsAsync(user);
     }
 
     public IUserReadOnlyRepository Build() => _mock.Object;
