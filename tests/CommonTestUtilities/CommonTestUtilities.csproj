@@ -7,11 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\Backend\FinancialManager.Domain\FinancialManager.Domain.csproj" />
       <ProjectReference Include="..\..\src\Shared\FinancialManager.Communication\FinancialManager.Communication.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="35.6.5" />
+      <PackageReference Include="Moq" Version="4.21.0" />
     </ItemGroup>
 
 </Project>
