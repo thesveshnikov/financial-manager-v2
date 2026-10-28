@@ -92,5 +92,17 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_LOGIN_INVALID", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_ACCESS_TOKEN_REQUIRED {
+            get {
+                return ResourceManager.GetString("VALIDATION_ACCESS_TOKEN_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_RESOURCE_ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("VALIDATION_RESOURCE_ACCESS_DENIED", resourceCulture);
+            }
+        }
     }
 }

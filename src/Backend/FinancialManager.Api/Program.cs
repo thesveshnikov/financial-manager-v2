@@ -4,7 +4,9 @@ using System.Text;
 using FinancialManager.Api.Converters;
 using FinancialManager.Api.Filters;
 using FinancialManager.Application;
+using FinancialManager.Communication.Responses;
 using FinancialManager.Domain.Repositories.User;
+using FinancialManager.Exception;
 using FinancialManager.Infrastructure;
 using FinancialManager.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,28 +57,44 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
         };
-        
+
         jwtOptions.Events = new JwtBearerEvents
         {
             OnTokenValidated = async context =>
             {
-                var userId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
-                             ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+                var subject = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                              ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                if (string.IsNullOrWhiteSpace(userId) == false)
+                if (Guid.TryParse(subject, out var userId) == false)
                 {
-                    context.Fail("Invalid subject");
+                    context.Fail("Invalid token subject.");
 
                     return;
                 }
 
                 var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserReadOnlyRepository>();
 
-                var existUser = await userRepository.ExistsActiveUserWithId(Guid.Parse(userId));
-                if (existUser == false)
+                var userExists = await userRepository.ExistsActiveUserWithId(userId);
+                if (userExists == false)
                 {
-                    context.Fail("Invalid user");
+                    context.Fail("User not found or inactive.");
                 }
+            },
+            OnChallenge = async context =>
+            {
+                context.HandleResponse();
+
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+
+                var response = context.AuthenticateFailure switch
+                {
+                    null => new ResponseErrorJson(ResourceMessagesException.VALIDATION_ACCESS_TOKEN_REQUIRED),
+                    SecurityTokenExpiredException => new ResponseErrorJson("Token Expired", accessTokenExpired: true),
+                    _ => new ResponseErrorJson(ResourceMessagesException.VALIDATION_RESOURCE_ACCESS_DENIED),
+                };
+
+                await context.Response.WriteAsJsonAsync(response);
             }
         };
     });
