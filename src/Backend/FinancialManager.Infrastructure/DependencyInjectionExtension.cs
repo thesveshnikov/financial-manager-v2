@@ -1,10 +1,12 @@
 using System.Reflection;
+using FinancialManager.Domain.Identity;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
 using FinancialManager.Domain.Security.Tokens;
 using FinancialManager.Infrastructure.DataAccess;
 using FinancialManager.Infrastructure.DataAccess.Repositories;
+using FinancialManager.Infrastructure.Identity;
 using FinancialManager.Infrastructure.Security.PasswordHashing;
 using FinancialManager.Infrastructure.Security.Tokens.Access;
 using FluentMigrator.Runner;
@@ -23,6 +25,8 @@ public static class DependencyInjectionExtension
             services.AddRepositories();
 
             services.AddSecurity(configuration);
+
+            services.AddScoped<ILoggedUser, LoggedUser>();
 
             services.AddDbContext<FinancialManagerDbContext>(config =>
             {

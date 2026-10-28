@@ -3,9 +3,11 @@ using System.Security.Claims;
 using System.Text;
 using FinancialManager.Api.Converters;
 using FinancialManager.Api.Filters;
+using FinancialManager.Api.Token;
 using FinancialManager.Application;
 using FinancialManager.Communication.Responses;
 using FinancialManager.Domain.Repositories.User;
+using FinancialManager.Domain.Security.Tokens;
 using FinancialManager.Exception;
 using FinancialManager.Infrastructure;
 using FinancialManager.Infrastructure.Migrations;
@@ -123,6 +125,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddScoped<IAccessTokenProvider, HttpContextTokenProvider>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
