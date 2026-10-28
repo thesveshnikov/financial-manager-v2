@@ -12,7 +12,7 @@ public static class DependencyInjectionExtension
         {
             services.AddScoped<IRegisterUserAccountUseCase, RegisterUserAccountUseCase>();
             
-            services.AddScoped<ILoginWithEmailAndPassword, LoginWithEmailAndPassword>();
+            services.AddScoped<ILoginWithEmailAndPasswordUseCase, LoginWithEmailAndPasswordUseCase>();
         }
     }
 }

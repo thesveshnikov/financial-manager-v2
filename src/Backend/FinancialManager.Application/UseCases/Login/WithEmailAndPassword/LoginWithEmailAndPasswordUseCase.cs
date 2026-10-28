@@ -6,12 +6,12 @@ using FinancialManager.Exception.ExceptionsBase;
 
 namespace FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 
-public class LoginWithEmailAndPassword : ILoginWithEmailAndPassword
+public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCase
 {
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserReadOnlyRepository _repository;
 
-    public LoginWithEmailAndPassword(
+    public LoginWithEmailAndPasswordUseCase(
         IPasswordHasher passwordHasher,
         IUserReadOnlyRepository repository)
     {
