@@ -4,21 +4,28 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using FinancialManager.Exception;
-using Microsoft.AspNetCore.Mvc.Testing;
+using FinancialManager.Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using UseCases.Tests.InlineData;
 
 namespace WebApi.Tests.User.Register;
 
-public class RegisterUserAccountTests : IClassFixture<WebApplicationFactory<Program>>
+public class RegisterUserAccountTests : IClassFixture<FinancialManagerApplicationFactory>
 {
     private const string REQUEST_URI = "api/users";
 
     private readonly HttpClient _httpClient;
+    private readonly FinancialManagerDbContext _dbContext;
 
-    public RegisterUserAccountTests(WebApplicationFactory<Program> factory)
+    public RegisterUserAccountTests(FinancialManagerApplicationFactory factory)
     {
         _httpClient = factory.CreateClient();
+
+        var scope = factory.Services.CreateScope();
+
+        _dbContext = scope.ServiceProvider.GetRequiredService<FinancialManagerDbContext>();
     }
 
     [Fact]
@@ -36,6 +43,10 @@ public class RegisterUserAccountTests : IClassFixture<WebApplicationFactory<Prog
 
         responseData.RootElement.GetProperty("name").GetString().ShouldBe(request.Name);
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldBeEmpty();
+
+        var userExists = await _dbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
+
+        userExists.ShouldBeTrue();
     }
 
     [Theory]
@@ -65,5 +76,9 @@ public class RegisterUserAccountTests : IClassFixture<WebApplicationFactory<Prog
             errorsList.Count().ShouldBe(1);
             errorsList.ShouldContain(error => string.IsNullOrWhiteSpace(error.GetString()) == false && error.GetString()!.Equals(expectedErrorMessage));
         });
+        
+        var userExists = await _dbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
+
+        userExists.ShouldBeFalse();
     }
 }
