@@ -1,70 +1,102 @@
-using CommonTestUtilities.Repositories;
+using System.Diagnostics.CodeAnalysis;
 using CommonTestUtilities.Requests;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Exception;
-using FinancialManager.Exception.ExceptionsBase;
 using Shouldly;
 
 namespace UseCases.Tests.User.Register;
 
-public class RegisterUserAccountUseCaseTests
+public class RegisterUserAccountValidatorTests
 {
     [Fact]
-    public async Task Success()
+    public void Success()
     {
         var request = RequestRegisterUserAccountJsonBuilder.Build();
 
-        var useCase = CreateUseCase();
+        var validator = new RegisterUserAccountValidator();
 
-        var result = await useCase.Execute(request);
+        var result = validator.Validate(request);
 
-        result.ShouldNotBeNull();
-        result.Tokens.ShouldNotBeNull();
-        result.Name.ShouldBe(request.Name);
-        result.Tokens.AccessToken.ShouldBeNullOrEmpty();
-        result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
+        result.IsValid.ShouldBeTrue();
     }
 
-    [Fact]
-    public async Task Validate_ShouldThrowException_WhenNameIsEmpty()
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    [SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "Intentional because is a unit test")]
+    public void Validate_ShouldHaveError_WhenNameIsEmpty(string name)
     {
         var request = RequestRegisterUserAccountJsonBuilder.Build();
-        request.Name = string.Empty;
+        request.Name = name;
 
-        var useCase = CreateUseCase();
+        var validator = new RegisterUserAccountValidator();
 
-        var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
-        exception.GetErrorMessages().ShouldSatisfyAllConditions(errorMessages =>
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errorMessages.Count.ShouldBe(1);
-            errorMessages.ShouldContain(ResourceMessagesException.VALIDATION_NAME_REQUIRED);
+            errors.Count.ShouldBe(1);
+            errors.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_NAME_REQUIRED));
+        });
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" ")]
+    [SuppressMessage("Usage", "xUnit1012:Null should only be used for nullable parameters", Justification = "Intentional because is a unit test")]
+    public void Validate_ShouldHaveError_WhenEmailIsEmpty(string email)
+    {
+        var request = RequestRegisterUserAccountJsonBuilder.Build();
+        request.Email = email;
+
+        var validator = new RegisterUserAccountValidator();
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(errors =>
+        {
+            errors.Count.ShouldBe(1);
+            errors.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_EMAIL_REQUIRED));
         });
     }
 
     [Fact]
-    public async Task Validate_ShouldThrowException_WhenEmailAlreadyExists()
+    public void Validate_ShouldHaveError_WhenPasswordIsEmpty()
     {
         var request = RequestRegisterUserAccountJsonBuilder.Build();
+        request.Password = string.Empty;
 
-        var useCase = CreateUseCase(request.Email);
+        var validator = new RegisterUserAccountValidator();
 
-        var exception = await useCase.Execute(request).ShouldThrowAsync<ErrorOnValidationException>();
-        exception.GetErrorMessages().ShouldSatisfyAllConditions(errorMessages =>
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(errors =>
         {
-            errorMessages.Count.ShouldBe(1);
-            errorMessages.ShouldContain(ResourceMessagesException.VALIDATION_EMAIL_ALREADY_EXISTS);
+            errors.Count.ShouldBe(1);
+            errors.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_PASSWORD_REQUIRED));
         });
     }
 
-    private RegisterUserAccountUseCase CreateUseCase(string? emailThatAlreadyExists = null)
+    [Fact]
+    public void Validate_ShouldHaveError_WhenEmailIsInvalid()
     {
-        var unitOfWork = IUnitOfWorkBuilder.Build();
-        var userWriteOnlyRepository = IUserWriteOnlyRepositoryBuilder.Build();
-        var passwordHasher = new IPasswordHasherBuilder().Build();
-        var userReadOnlyRepositoryBuilder = new IUserReadOnlyRepositoryBuilder();
-        if(string.IsNullOrWhiteSpace(emailThatAlreadyExists) == false)
-            userReadOnlyRepositoryBuilder.ExistsActiveUserWithEmail(emailThatAlreadyExists);
+        var request = RequestRegisterUserAccountJsonBuilder.Build();
+        request.Email = "invalid";
 
-        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepositoryBuilder.Build(), unitOfWork);
+        var validator = new RegisterUserAccountValidator();
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(errors =>
+        {
+            errors.Count.ShouldBe(1);
+            errors.ShouldContain(error => error.ErrorMessage.Equals(ResourceMessagesException.VALIDATION_EMAIL_INVALID));
+        });
     }
 }
