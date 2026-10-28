@@ -1,11 +1,17 @@
 using System.Globalization;
+using System.Security.Claims;
+using System.Text;
 using FinancialManager.Api.Converters;
 using FinancialManager.Api.Filters;
 using FinancialManager.Application;
+using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Infrastructure;
 using FinancialManager.Infrastructure.Migrations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +40,46 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>()); 
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(jwtOptions =>
+    {
+        var signingKey = builder.Configuration.GetValue<string>("Jwt:SigningKey")!;
+
+        jwtOptions.TokenValidationParameters = new()
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+        
+        jwtOptions.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = async context =>
+            {
+                var userId = context.Principal?.FindFirstValue(JwtRegisteredClaimNames.Sub)
+                             ?? context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (string.IsNullOrWhiteSpace(userId) == false)
+                {
+                    context.Fail("Invalid subject");
+
+                    return;
+                }
+
+                var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserReadOnlyRepository>();
+
+                var existUser = await userRepository.ExistsActiveUserWithId(Guid.Parse(userId));
+                if (existUser == false)
+                {
+                    context.Fail("Invalid user");
+                }
+            }
+        };
+    });
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
