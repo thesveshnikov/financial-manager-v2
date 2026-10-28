@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="VALIDATION_NAME_REQUIRED" xml:space="preserve">
-        <value>The name is required.</value>
+        <value>Invalid email or password.</value>
     </data>
     <data name="VALIDATION_EMAIL_REQUIRED" xml:space="preserve">
         <value>The email is required.</value>
@@ -38,5 +38,8 @@
     </data>
     <data name="VALIDATION_DATE_OF_BIRTH_INVALID" xml:space="preserve">
         <value>This date doesn't looks right.</value>
+    </data>
+    <data name="VALIDATION_LOGIN_INVALID" xml:space="preserve">
+        <value>Invalid email or password.</value>
     </data>
 </root>

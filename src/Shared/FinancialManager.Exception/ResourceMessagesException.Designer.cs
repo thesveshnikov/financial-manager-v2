@@ -86,5 +86,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_DATE_OF_BIRTH_INVALID", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_LOGIN_INVALID {
+            get {
+                return ResourceManager.GetString("VALIDATION_LOGIN_INVALID", resourceCulture);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 using FinancialManager.Application.UseCases.User.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ public static class DependencyInjectionExtension
         public void AddApplication()
         {
             services.AddScoped<IRegisterUserAccountUseCase, RegisterUserAccountUseCase>();
+            
+            services.AddScoped<ILoginWithEmailAndPassword, LoginWithEmailAndPassword>();
         }
     }
 }

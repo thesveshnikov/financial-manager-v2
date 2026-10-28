@@ -1,7 +1,6 @@
 using FinancialManager.Communication.Responses;
 using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
