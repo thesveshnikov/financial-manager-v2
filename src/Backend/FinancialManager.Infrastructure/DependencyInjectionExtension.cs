@@ -2,9 +2,11 @@ using System.Reflection;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
+using FinancialManager.Domain.Security.Tokens;
 using FinancialManager.Infrastructure.DataAccess;
 using FinancialManager.Infrastructure.DataAccess.Repositories;
 using FinancialManager.Infrastructure.Security.PasswordHashing;
+using FinancialManager.Infrastructure.Security.Tokens.Access;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,28 +16,23 @@ namespace FinancialManager.Infrastructure;
 
 public static class DependencyInjectionExtension
 {
-    extension (IServiceCollection services)
+    extension(IServiceCollection services)
     {
         public void AddInfrastructure(IConfiguration configuration)
         {
-            services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
+            services.AddRepositories();
 
-            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
-            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
-            
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSecurity(configuration);
 
             services.AddDbContext<FinancialManagerDbContext>(config =>
             {
                 var connectionString = configuration.GetConnectionString("DbConnection")!;
-                
+
                 config.UseMySQL(connectionString);
             });
 
             services.AddFluentMigratorCore().ConfigureRunner(config =>
             {
-                var connectionString = configuration.GetConnectionString("DbConnection")!;
-
                 config
                     .AddMySql5()
                     .WithGlobalConnectionString(_ =>
@@ -46,6 +43,27 @@ public static class DependencyInjectionExtension
                     })
                     .ScanIn(Assembly.Load("FinancialManager.Infrastructure"))
                     .For.All();
+            });
+        }
+
+        private void AddRepositories()
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        }
+
+        private void AddSecurity(IConfiguration configuration)
+        {
+            services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
+
+            services.AddScoped<IAccessTokenGenerator>(provider =>
+            {
+                var expirationTimeInMinutes = configuration.GetValue<uint>("Jwt:ExpirationTimeMinutes");
+                var signingKey = configuration.GetValue<string>("Jwt:SigningKey")!;
+
+                return new JwtTokenHandler(expirationTimeInMinutes, signingKey);
             });
         }
     }

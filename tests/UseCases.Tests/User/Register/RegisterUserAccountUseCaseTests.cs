@@ -1,6 +1,7 @@
 using System.Net;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
+using CommonTestUtilities.Security;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
@@ -22,7 +23,7 @@ public class RegisterUserAccountUseCaseTests
         result.ShouldNotBeNull();
         result.Tokens.ShouldNotBeNull();
         result.Name.ShouldBe(request.Name);
-        result.Tokens.AccessToken.ShouldBeNullOrEmpty();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
     }
 
@@ -65,6 +66,7 @@ public class RegisterUserAccountUseCaseTests
 
     private RegisterUserAccountUseCase CreateUseCase(string? emailThatAlreadyExists = null)
     {
+        var accessTokenGenerator = IAccessTokenGeneratorBuilder.Build();
         var unitOfWork = IUnitOfWorkBuilder.Build();
         var userWriteOnlyRepository = IUserWriteOnlyRepositoryBuilder.Build();
         var passwordHasher = new IPasswordHasherBuilder().Build();
@@ -72,6 +74,6 @@ public class RegisterUserAccountUseCaseTests
         if(string.IsNullOrWhiteSpace(emailThatAlreadyExists) == false)
             userReadOnlyRepositoryBuilder.ExistsActiveUserWithEmail(emailThatAlreadyExists);
 
-        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepositoryBuilder.Build(), unitOfWork);
+        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepositoryBuilder.Build(), accessTokenGenerator, unitOfWork);
     }
 }

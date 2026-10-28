@@ -2,6 +2,7 @@ using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
+using FinancialManager.Domain.Security.Tokens;
 using FinancialManager.Exception.ExceptionsBase;
 
 namespace FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
@@ -10,13 +11,16 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
 {
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserReadOnlyRepository _repository;
+    private readonly IAccessTokenGenerator _accessTokenGenerator;
 
     public LoginWithEmailAndPasswordUseCase(
         IPasswordHasher passwordHasher,
-        IUserReadOnlyRepository repository)
+        IUserReadOnlyRepository repository,
+        IAccessTokenGenerator accessTokenGenerator)
     {
         _passwordHasher = passwordHasher;
         _repository = repository;
+        _accessTokenGenerator = accessTokenGenerator;
     }
     
     public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
@@ -31,7 +35,11 @@ public class LoginWithEmailAndPasswordUseCase : ILoginWithEmailAndPasswordUseCas
         
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = _accessTokenGenerator.Generate(user)
+            }
         };
     }
 }

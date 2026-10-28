@@ -6,6 +6,7 @@ using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
 using Shouldly;
 using System.Net;
+using CommonTestUtilities.Security;
 
 namespace UseCases.Tests.Login.WithEmailAndPassword;
 
@@ -26,7 +27,7 @@ public class LoginWithEmailAndPasswordUseCaseTests
         result.ShouldNotBeNull();
         result.Tokens.ShouldNotBeNull();
         result.Name.ShouldBe(user.Name);
-        result.Tokens.AccessToken.ShouldBeNullOrEmpty();
+        result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
         result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
     }
 
@@ -70,6 +71,7 @@ public class LoginWithEmailAndPasswordUseCaseTests
 
     private LoginWithEmailAndPasswordUseCase CreateUseCase(string? password = null, FinancialManager.Domain.Entities.User? user = null)
     {
+        var accessTokenGenerator = IAccessTokenGeneratorBuilder.Build();
         var passwordHasherBuilder = new IPasswordHasherBuilder();
         var userReadOnlyRepositoryBuilder = new IUserReadOnlyRepositoryBuilder();
         if(user is not null)
@@ -78,6 +80,6 @@ public class LoginWithEmailAndPasswordUseCaseTests
         if(string.IsNullOrWhiteSpace(password) == false)
             passwordHasherBuilder.VerifyPassword(password);
 
-        return new LoginWithEmailAndPasswordUseCase(passwordHasherBuilder.Build(), userReadOnlyRepositoryBuilder.Build());
+        return new LoginWithEmailAndPasswordUseCase(passwordHasherBuilder.Build(), userReadOnlyRepositoryBuilder.Build(), accessTokenGenerator);
     }
 }

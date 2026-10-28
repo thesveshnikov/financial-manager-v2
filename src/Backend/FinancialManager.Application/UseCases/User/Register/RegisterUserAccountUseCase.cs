@@ -3,6 +3,7 @@ using FinancialManager.Communication.Responses;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
+using FinancialManager.Domain.Security.Tokens;
 using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
 using FluentValidation.Results;
@@ -15,17 +16,20 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserWriteOnlyRepository _writeOnlyRepository;
     private readonly IUserReadOnlyRepository _readOnlyRepository;
+    private readonly IAccessTokenGenerator _accessTokenGenerator;
     private readonly IUnitOfWork _unitOfWork;
     
     public RegisterUserAccountUseCase(
         IPasswordHasher passwordHasher,
         IUserWriteOnlyRepository writeOnlyRepository,
         IUserReadOnlyRepository readOnlyRepository,
+        IAccessTokenGenerator accessTokenGenerator,
         IUnitOfWork unitOfWork)
     {
         _passwordHasher = passwordHasher;
         _writeOnlyRepository = writeOnlyRepository;
         _readOnlyRepository = readOnlyRepository;
+        _accessTokenGenerator = accessTokenGenerator;
         _unitOfWork = unitOfWork;
     }
     
@@ -43,7 +47,11 @@ public class RegisterUserAccountUseCase : IRegisterUserAccountUseCase
         
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name
+            Name = user.Name,
+            Tokens = new ResponseTokensJson
+            {
+                AccessToken = _accessTokenGenerator.Generate(user)
+            }
         };
     }
 
