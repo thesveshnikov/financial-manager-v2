@@ -1,39 +1,26 @@
+using CommonTestUtilities.Requests;
+using Microsoft.EntityFrameworkCore;
+using FinancialManager.Exception;
+using Shouldly;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
-using CommonTestUtilities.Requests;
-using FinancialManager.Exception;
-using FinancialManager.Infrastructure.DataAccess;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Shouldly;
 using UseCases.Tests.InlineData;
 
 namespace WebApi.Tests.User.Register;
 
-public class RegisterUserAccountTests : IClassFixture<FinancialManagerApplicationFactory>
+public class RegisterUserAccountTests : BaseIntegrationTest
 {
     private const string REQUEST_URI = "api/users";
 
-    private readonly HttpClient _httpClient;
-    private readonly FinancialManagerDbContext _dbContext;
-
-    public RegisterUserAccountTests(FinancialManagerApplicationFactory factory)
-    {
-        _httpClient = factory.CreateClient();
-
-        var scope = factory.Services.CreateScope();
-
-        _dbContext = scope.ServiceProvider.GetRequiredService<FinancialManagerDbContext>();
-    }
+    public RegisterUserAccountTests(FinancialManagerApplicationFactory factory) : base(factory) {}
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserAccountJsonBuilder.Build();
 
-        var response = await _httpClient.PostAsJsonAsync(REQUEST_URI, request);
+        var response = await Post(REQUEST_URI, request);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -44,7 +31,7 @@ public class RegisterUserAccountTests : IClassFixture<FinancialManagerApplicatio
         responseData.RootElement.GetProperty("name").GetString().ShouldBe(request.Name);
         responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldBeEmpty();
 
-        var userExists = await _dbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
+        var userExists = await DbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
 
         userExists.ShouldBeTrue();
     }
@@ -56,10 +43,7 @@ public class RegisterUserAccountTests : IClassFixture<FinancialManagerApplicatio
         var request = RequestRegisterUserAccountJsonBuilder.Build();
         request.Name = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Clear();
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.ParseAdd(culture);
-
-        var response = await _httpClient.PostAsJsonAsync(REQUEST_URI, request);
+        var response = await Post(REQUEST_URI, request, culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
@@ -76,8 +60,8 @@ public class RegisterUserAccountTests : IClassFixture<FinancialManagerApplicatio
             errorsList.Count().ShouldBe(1);
             errorsList.ShouldContain(error => string.IsNullOrWhiteSpace(error.GetString()) == false && error.GetString()!.Equals(expectedErrorMessage));
         });
-        
-        var userExists = await _dbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
+
+        var userExists = await DbContext.Users.AnyAsync(user => user.Active && user.Name.Equals(request.Name) && user.Email.Equals(request.Email));
 
         userExists.ShouldBeFalse();
     }

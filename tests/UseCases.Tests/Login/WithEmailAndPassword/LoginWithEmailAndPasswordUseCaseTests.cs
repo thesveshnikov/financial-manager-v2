@@ -1,4 +1,3 @@
-using System.Net;
 using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
@@ -6,6 +5,7 @@ using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
 using Shouldly;
+using System.Net;
 
 namespace UseCases.Tests.Login.WithEmailAndPassword;
 
@@ -14,7 +14,8 @@ public class LoginWithEmailAndPasswordUseCaseTests
     [Fact]
     public async Task Success()
     {
-        var user = UserBuilder.Build();
+        var (user, _) = UserBuilder.Build();
+
         var request = RequestLoginJsonBuilder.Build();
         request.Email = user.Email;
 
@@ -50,7 +51,7 @@ public class LoginWithEmailAndPasswordUseCaseTests
     [Fact]
     public async Task ShouldThrowException_WhenPasswordIsIncorrect()
     {
-        var user = UserBuilder.Build();
+        var (user, _) = UserBuilder.Build();
         var request = RequestLoginJsonBuilder.Build();
         request.Email = user.Email;
 
