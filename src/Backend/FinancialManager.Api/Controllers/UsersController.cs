@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
+using FinancialManager.Application.UseCases.User.Profile;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,5 +23,15 @@ public class UsersController : ControllerBase
         var response = await useCase.Execute(request);
         
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserProfile([FromServices] IGetUserProfileUseCase useCase)
+    {
+        var result = await useCase.Execute();
+
+        return Ok(result);
     }
 }
