@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Infrastructure.DataAccess.Repositories;
 
-internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
+internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly FinancialManagerDbContext _dbContext;
 
@@ -26,4 +26,9 @@ internal sealed class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRe
     public async Task<User?> GetById(Guid id) => await _dbContext.Users
         .AsNoTracking()
         .SingleOrDefaultAsync(user => user.Active && user.Id.Equals(id));
+
+    public async Task UpdatePassword(Guid userId, string passwordHash) => await _dbContext
+        .Users
+        .Where(user => user.Id == userId)
+        .ExecuteUpdateAsync(setter => setter.SetProperty(user => user.Password, passwordHash));
 }

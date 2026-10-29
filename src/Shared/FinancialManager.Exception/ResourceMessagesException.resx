@@ -48,4 +48,22 @@
     <data name="VALIDATION_RESOURCE_ACCESS_DENIED" xml:space="preserve">
         <value>You don’t have access to this resource.</value>
     </data>
+    <data name="VALIDATION_CURRENT_PASSWORD" xml:space="preserve">
+        <value>The current password is incorrect.</value>
+    </data>
+    <data name="VALIDATION_PASSWORD_MIN_LENGTH" xml:space="preserve">
+        <value>Password must be at least 6 characters long.</value>
+    </data>
+    <data name="VALIDATION_PASSWORD_MUST_CONTAIN_ONE_UPPERCASE_LETTER" xml:space="preserve">
+        <value>Password must contain at least one uppercase letter</value>
+    </data>
+    <data name="VALIDATION_PASSWORD_MUST_CONTAIN_ONE_LOWERCASE_LETTER" xml:space="preserve">
+        <value>Password  must contain at least one lowercase letter.</value>
+    </data>
+    <data name="VALIDATION_PASSWORD_MUST_CONTAIN_ONE_NUMBER" xml:space="preserve">
+        <value>Password must contain at least one number.</value>
+    </data>
+    <data name="VALIDATION_PASSWORD_MUST_CONTAIN_ONE_SPECIAL_CHARACTER" xml:space="preserve">
+        <value>Password must contain at least one special character.</value>
+    </data>
 </root>

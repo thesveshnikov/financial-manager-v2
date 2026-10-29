@@ -104,5 +104,41 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_RESOURCE_ACCESS_DENIED", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("VALIDATION_CURRENT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_PASSWORD_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_PASSWORD_MUST_CONTAIN_ONE_UPPERCASE_LETTER {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MUST_CONTAIN_ONE_UPPERCASE_LETTER", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_PASSWORD_MUST_CONTAIN_ONE_LOWERCASE_LETTER {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MUST_CONTAIN_ONE_LOWERCASE_LETTER", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_PASSWORD_MUST_CONTAIN_ONE_NUMBER {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MUST_CONTAIN_ONE_NUMBER", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_PASSWORD_MUST_CONTAIN_ONE_SPECIAL_CHARACTER {
+            get {
+                return ResourceManager.GetString("VALIDATION_PASSWORD_MUST_CONTAIN_ONE_SPECIAL_CHARACTER", resourceCulture);
+            }
+        }
     }
 }

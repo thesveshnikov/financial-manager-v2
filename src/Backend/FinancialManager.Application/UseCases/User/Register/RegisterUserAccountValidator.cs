@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.Shared.Validators;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Exception;
 using FluentValidation;
@@ -10,7 +11,7 @@ public class RegisterUserAccountValidator : AbstractValidator<RequestRegisterUse
     {
         RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_NAME_REQUIRED);
         RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_EMAIL_REQUIRED);
-        RuleFor(user => user.Password).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_PASSWORD_REQUIRED);
+        RuleFor(user => user.Password).Password();
         RuleFor(user => user.DateOfBirth).Must(For13Years).WithMessage(ResourceMessagesException.VALIDATION_DATE_OF_BIRTH_INVALID);
         When(user => string.IsNullOrWhiteSpace(user.Email) == false, () =>
         {
