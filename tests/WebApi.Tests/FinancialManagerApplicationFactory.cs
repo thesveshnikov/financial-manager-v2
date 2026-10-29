@@ -14,6 +14,8 @@ namespace WebApi.Tests;
 public class FinancialManagerApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     public UserIdentityManager User1 { get; private set; } = null!;
+    
+    public string TOKEN_USER_NOT_FOUND_IN_DATABASE { get; private set; } = string.Empty;
 
     private readonly MySqlContainer _mySqlContainer;
 
@@ -58,6 +60,8 @@ public class FinancialManagerApplicationFactory : WebApplicationFactory<Program>
         var user1AccessToken = accessTokenGenerator.Generate(user);
         
         User1 = new UserIdentityManager(user, password, user1AccessToken);
+        
+        TOKEN_USER_NOT_FOUND_IN_DATABASE = accessTokenGenerator.Generate(new FinancialManager.Domain.Entities.User());
     }
 
     Task IAsyncLifetime.DisposeAsync() => _mySqlContainer.StopAsync();

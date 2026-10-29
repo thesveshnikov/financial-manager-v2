@@ -1,5 +1,5 @@
 using Bogus;
-using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Security;
 using FinancialManager.Domain.Entities;
 
 namespace CommonTestUtilities.Entities;

@@ -1,7 +1,7 @@
 using FinancialManager.Domain.Security.PasswordHashing;
 using Moq;
 
-namespace CommonTestUtilities.Repositories;
+namespace CommonTestUtilities.Security;
 
 public class IPasswordHasherBuilder
 {
@@ -14,9 +14,11 @@ public class IPasswordHasherBuilder
         _mock.Setup(passwordHasher => passwordHasher.HashPassword(It.IsAny<string>())).Returns("hashed-password");
     }
 
-    public void VerifyPassword(string password)
+    public IPasswordHasherBuilder VerifyPassword(string password)
     {
         _mock.Setup(repository => repository.VerifyPassword(password, It.IsAny<string>())).Returns(true);
+
+        return this;
     }
 
     public IPasswordHasher Build() => _mock.Object;
