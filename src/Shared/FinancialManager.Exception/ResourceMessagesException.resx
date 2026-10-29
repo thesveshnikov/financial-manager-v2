@@ -66,4 +66,7 @@
     <data name="VALIDATION_PASSWORD_MUST_CONTAIN_ONE_SPECIAL_CHARACTER" xml:space="preserve">
         <value>Password must contain at least one special character.</value>
     </data>
+    <data name="VALIDATION_NAME_MAX_LENGTH" xml:space="preserve">
+        <value>Name cannot exceed 255 characters.</value>
+    </data>
 </root>

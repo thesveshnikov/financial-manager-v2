@@ -1,3 +1,4 @@
+using FinancialManager.Domain.Enums;
 using FluentMigrator;
 
 namespace FinancialManager.Infrastructure.Migrations.Versions;
@@ -13,6 +14,12 @@ public class Version0000001 : ForwardOnlyMigration
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable()
             .WithColumn("Password").AsString(2000).NotNullable()
-            .WithColumn("DateOfBirth").AsDateTime().NotNullable();
+            .WithColumn("DateOfBirthday").AsDateTime().NotNullable()
+            .WithColumn("Role").AsInt32().NotNullable().WithDefaultValue((int)Role.Admin);
+
+        Create.Index("IX_Users_Email")
+            .OnTable("Users")
+            .OnColumn("Email")
+            .Unique();
     }
 }

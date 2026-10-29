@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 using FinancialManager.Application.UseCases.User.ChangePassword;
 using FinancialManager.Application.UseCases.User.Profile;
@@ -23,6 +24,8 @@ public static class DependencyInjectionExtension
             services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
             services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
             services.AddScoped<ILoginWithEmailAndPasswordUseCase, LoginWithEmailAndPasswordUseCase>();
+
+            services.AddScoped<IRegisterCategoryUseCase, RegisterCategoryUseCase>();
         }
     }
 }

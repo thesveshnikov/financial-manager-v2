@@ -140,5 +140,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_PASSWORD_MUST_CONTAIN_ONE_SPECIAL_CHARACTER", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("VALIDATION_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
     }
 }
