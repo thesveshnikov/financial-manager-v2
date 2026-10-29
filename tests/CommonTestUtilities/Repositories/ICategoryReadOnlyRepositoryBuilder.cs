@@ -20,5 +20,12 @@ public class ICategoryReadOnlyRepositoryBuilder
         return this;
     }
 
+    public ICategoryReadOnlyRepositoryBuilder GetById(Category category)
+    {
+        _mock.Setup(repository => repository.GetById(It.IsAny<Guid>())).ReturnsAsync(category);
+
+        return this;
+    }
+
     public ICategoryReadOnlyRepository Build() => _mock.Object;
 }
