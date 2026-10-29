@@ -81,4 +81,7 @@
     <data name="VALIDATION_CATEGORY_ID_REQUIRED" xml:space="preserve">
         <value>Category id is required.</value>
     </data>
+    <data name="NOT_FOUND" xml:space="preserve">
+        <value>We couldn’t find this {0}.</value>
+    </data>
 </root>

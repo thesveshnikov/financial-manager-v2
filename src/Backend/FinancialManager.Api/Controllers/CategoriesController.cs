@@ -1,4 +1,5 @@
 using FinancialManager.Application.UseCases.Category.GetAll;
+using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
@@ -30,6 +31,18 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetAll([FromServices] IGetAllCategoriesUseCase useCase)
     {
         var response = await useCase.Execute();
+
+        return Ok(response);
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(ResponseCategoryJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetCategoryByIdUseCase useCase,
+        [FromRoute] Guid id)
+    {
+        var response = await useCase.Execute(id);
 
         return Ok(response);
     }

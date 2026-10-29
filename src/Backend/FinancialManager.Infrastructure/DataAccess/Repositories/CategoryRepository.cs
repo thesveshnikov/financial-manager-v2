@@ -22,4 +22,9 @@ public class CategoryRepository : ICategoryWriteOnlyRepository, ICategoryReadOnl
         .AsNoTracking()
         .Where(category => category.Active && category.UserId.Equals(userId))
         .ToListAsync();
+
+    public async Task<Category?> GetById(Guid id) => await _dbContext
+        .Categories
+        .AsNoTracking()
+        .FirstOrDefaultAsync(category => category.Active && category.Id.Equals(id));
 }

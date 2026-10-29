@@ -170,5 +170,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_CATEGORY_ID_REQUIRED", resourceCulture);
             }
         }
+        
+        public static string NOT_FOUND {
+            get {
+                return ResourceManager.GetString("NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }
