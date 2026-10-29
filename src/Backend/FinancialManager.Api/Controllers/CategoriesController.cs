@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
@@ -21,5 +22,15 @@ public class CategoriesController : ControllerBase
         var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseCategoriesJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetAll([FromServices] IGetAllCategoriesUseCase useCase)
+    {
+        var response = await useCase.Execute();
+
+        return Ok(response);
     }
 }
