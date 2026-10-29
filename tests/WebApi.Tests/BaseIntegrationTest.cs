@@ -29,6 +29,14 @@ public abstract class BaseIntegrationTest : IClassFixture<FinancialManagerApplic
         return await _httpClient.PostAsJsonAsync(requestUri, request);
     }
     
+    protected async Task<HttpResponseMessage> Get(string requestUri, string accessToken, string culture = "en-US")
+    {
+        ChangeRequestCulture(culture);
+        AuthorizeRequest(accessToken);
+
+        return await _httpClient.GetAsync(requestUri);
+    }
+    
     protected async Task<HttpResponseMessage> Put(string requestUri, object request, string accessToken, string culture = "en-US")
     {
         ChangeRequestCulture(culture);
@@ -36,13 +44,13 @@ public abstract class BaseIntegrationTest : IClassFixture<FinancialManagerApplic
 
         return await _httpClient.PutAsJsonAsync(requestUri, request);
     }
-    
-    protected async Task<HttpResponseMessage> Get(string requestUri, string accessToken, string culture = "en-US")
+
+    protected async Task<HttpResponseMessage> Delete(string requestUri, string accessToken, string culture = "en-US")
     {
         ChangeRequestCulture(culture);
         AuthorizeRequest(accessToken);
 
-        return await _httpClient.GetAsync(requestUri);
+        return await _httpClient.DeleteAsync(requestUri);
     }
 
     private void ChangeRequestCulture(string culture)

@@ -1,3 +1,4 @@
+using FinancialManager.Domain.Entities;
 using FinancialManager.Domain.Repositories.Category;
 using Moq;
 
@@ -11,5 +12,13 @@ public class ICategoryWriteOnlyRepositoryBuilder
     {
         _mock = new Mock<ICategoryWriteOnlyRepository>();
     }
+
+    public ICategoryWriteOnlyRepositoryBuilder Delete(Category category)
+    {
+        _mock.Setup(repository => repository.Delete(category.Id)).ReturnsAsync(true);
+
+        return this;
+    }
+    
     public ICategoryWriteOnlyRepository Build() => _mock.Object;
 }
