@@ -3,7 +3,7 @@ using FinancialManager.Communication.Requests;
 
 namespace CommonTestUtilities.Requests;
 
-public class RequestRegisterUserAccountJsonBuilder
+public static class RequestRegisterUserAccountJsonBuilder
 {
     public static RequestRegisterUserAccountJson Build(int passwordLength = 10)
     {
@@ -33,6 +33,7 @@ public class RequestRegisterUserAccountJsonBuilder
                     .OrderBy(_ => f.Random.Int())
                     .ToArray());
             })
-            .RuleFor(request => request.DateOfBirth, f => f.Date.Past().AddYears(-13));
+            .RuleFor(request => request.DateOfBirth, f => f.Date.Past().AddYears(-13))
+            .Generate();
     }
 }

@@ -146,5 +146,29 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("VALIDATION_NAME_MAX_LENGTH", resourceCulture);
             }
         }
+        
+        public static string VALIDATION_AMOUNT_MUST_BE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("VALIDATION_AMOUNT_MUST_BE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_ENUM_INVALID {
+            get {
+                return ResourceManager.GetString("VALIDATION_ENUM_INVALID", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_EXPENSE_DATE_INVALID {
+            get {
+                return ResourceManager.GetString("VALIDATION_EXPENSE_DATE_INVALID", resourceCulture);
+            }
+        }
+        
+        public static string VALIDATION_CATEGORY_ID_REQUIRED {
+            get {
+                return ResourceManager.GetString("VALIDATION_CATEGORY_ID_REQUIRED", resourceCulture);
+            }
+        }
     }
 }

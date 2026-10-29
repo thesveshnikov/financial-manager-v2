@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="VALIDATION_NAME_REQUIRED" xml:space="preserve">
-        <value>Invalid email or password.</value>
+        <value>The name is required.</value>
     </data>
     <data name="VALIDATION_EMAIL_REQUIRED" xml:space="preserve">
         <value>The email is required.</value>
@@ -68,5 +68,17 @@
     </data>
     <data name="VALIDATION_NAME_MAX_LENGTH" xml:space="preserve">
         <value>Name cannot exceed 255 characters.</value>
+    </data>
+    <data name="VALIDATION_AMOUNT_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
+        <value>Amount must be greater than zero.</value>
+    </data>
+    <data name="VALIDATION_ENUM_INVALID" xml:space="preserve">
+        <value>This {0} is invalid.</value>
+    </data>
+    <data name="VALIDATION_EXPENSE_DATE_INVALID" xml:space="preserve">
+        <value>Expenses cannot be for the future.</value>
+    </data>
+    <data name="VALIDATION_CATEGORY_ID_REQUIRED" xml:space="preserve">
+        <value>Category id is required.</value>
     </data>
 </root>
