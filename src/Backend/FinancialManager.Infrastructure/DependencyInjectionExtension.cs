@@ -61,6 +61,7 @@ public static class DependencyInjectionExtension
 
             services.AddScoped<ICategoryWriteOnlyRepository, CategoryRepository>();
             services.AddScoped<ICategoryReadOnlyRepository, CategoryRepository>();
+            services.AddScoped<ICategoryUpdateOnlyRepository, CategoryRepository>();
         }
 
         private void AddSecurity(IConfiguration configuration)

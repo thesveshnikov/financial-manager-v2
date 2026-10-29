@@ -1,6 +1,7 @@
 using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
+using FinancialManager.Application.UseCases.Category.UpdateById;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -45,5 +46,19 @@ public class CategoriesController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateCategoryByIdUseCase useCase,
+        [FromRoute] Guid id,
+        [FromBody] RequestCategoryJson request)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
     }
 }

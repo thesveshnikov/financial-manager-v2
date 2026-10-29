@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Infrastructure.DataAccess.Repositories;
 
-public class CategoryRepository : ICategoryWriteOnlyRepository, ICategoryReadOnlyRepository
+public class CategoryRepository : ICategoryWriteOnlyRepository, ICategoryReadOnlyRepository, ICategoryUpdateOnlyRepository
 {
     private readonly FinancialManagerDbContext _dbContext;
 
@@ -23,8 +23,12 @@ public class CategoryRepository : ICategoryWriteOnlyRepository, ICategoryReadOnl
         .Where(category => category.Active && category.UserId.Equals(userId))
         .ToListAsync();
 
-    public async Task<Category?> GetById(Guid id) => await _dbContext
+    async Task<Category?> ICategoryReadOnlyRepository.GetById(Guid id) => await _dbContext
         .Categories
         .AsNoTracking()
+        .FirstOrDefaultAsync(category => category.Active && category.Id.Equals(id));
+
+    async Task<Category?> ICategoryUpdateOnlyRepository.GetById(Guid id) => await _dbContext
+        .Categories
         .FirstOrDefaultAsync(category => category.Active && category.Id.Equals(id));
 }
