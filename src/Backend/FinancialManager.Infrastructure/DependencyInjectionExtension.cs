@@ -2,6 +2,7 @@ using System.Reflection;
 using FinancialManager.Domain.Identity;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.Category;
+using FinancialManager.Domain.Repositories.Expense;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
 using FinancialManager.Domain.Security.Tokens;
@@ -62,6 +63,8 @@ public static class DependencyInjectionExtension
             services.AddScoped<ICategoryWriteOnlyRepository, CategoryRepository>();
             services.AddScoped<ICategoryReadOnlyRepository, CategoryRepository>();
             services.AddScoped<ICategoryUpdateOnlyRepository, CategoryRepository>();
+
+            services.AddScoped<IExpenseWriteOnlyRepository, ExpenseRepository>();
         }
 
         private void AddSecurity(IConfiguration configuration)
