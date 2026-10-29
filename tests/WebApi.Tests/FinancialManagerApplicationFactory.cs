@@ -54,12 +54,17 @@ public class FinancialManagerApplicationFactory : WebApplicationFactory<Program>
 
         user.Password = passwordHasher.HashPassword(password);
 
+        var category = CategoryBuilder.Build(user);
+        
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
+        await dbContext.Categories.AddAsync(category);
 
+        await dbContext.SaveChangesAsync();
+        
         var user1AccessToken = accessTokenGenerator.Generate(user);
         
-        User1 = new UserIdentityManager(user, password, user1AccessToken);
+        User1 = new UserIdentityManager(user, category, password, user1AccessToken);
         
         TOKEN_USER_NOT_FOUND_IN_DATABASE = accessTokenGenerator.Generate(new FinancialManager.Domain.Entities.User());
     }
