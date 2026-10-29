@@ -1,3 +1,4 @@
+using FinancialManager.Application.UseCases.Category.DeleteById;
 using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
@@ -32,6 +33,7 @@ public static class DependencyInjectionExtension
             services.AddScoped<IGetAllCategoriesUseCase, GetAllCategoriesUseCase>();
             services.AddScoped<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
             services.AddScoped<IUpdateCategoryByIdUseCase, UpdateCategoryByIdUseCase>();
+            services.AddScoped<IDeleteCategoryByIdUseCase, DeleteCategoryByIdUseCase>();
         }
     }
 }

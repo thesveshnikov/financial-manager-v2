@@ -16,6 +16,26 @@ public class CategoryRepository : ICategoryWriteOnlyRepository, ICategoryReadOnl
     public async Task Add(Category category) => await _dbContext
         .Categories
         .AddAsync(category);
+    
+    public async Task<bool> Delete(Guid id)
+    {
+        var category = await _dbContext.Categories
+            .FirstOrDefaultAsync(c => c.Active && c.Id == id);
+
+        if (category is null)
+            return false;
+
+        await _dbContext.Expenses
+            .Where(e => e.CategoryId == id)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(e => e.CategoryId, (Guid?)null));
+
+        var rows = await _dbContext.Categories
+            .Where(c => c.Id == id)
+            .ExecuteDeleteAsync();
+
+        return rows > 0;
+    }
 
     public async Task<IList<Category>> GetAll(Guid userId) => await _dbContext
         .Categories
