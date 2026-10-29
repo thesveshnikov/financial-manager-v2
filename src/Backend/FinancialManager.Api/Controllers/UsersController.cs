@@ -1,11 +1,10 @@
-using System.Threading.Tasks;
 using FinancialManager.Application.UseCases.User.ChangePassword;
 using FinancialManager.Application.UseCases.User.Profile;
 using FinancialManager.Application.UseCases.User.Register;
+using FinancialManager.Application.UseCases.User.Update;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialManager.Api.Controllers;
@@ -34,6 +33,19 @@ public class UsersController : ControllerBase
         var result = await useCase.Execute();
 
         return Ok(result);
+    }
+    
+    [HttpPut("profile")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProfile(
+        [FromServices] IUpdateUserUseCase useCase,
+        [FromBody] RequestUpdateUserJson request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
     }
     
     [HttpPut("password")]
