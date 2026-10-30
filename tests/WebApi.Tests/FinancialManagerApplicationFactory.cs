@@ -51,21 +51,23 @@ public class FinancialManagerApplicationFactory : WebApplicationFactory<Program>
         var accessTokenGenerator = scope.ServiceProvider.GetRequiredService<IAccessTokenGenerator>();
 
         var (user, password) = UserBuilder.Build();
-
         user.Password = passwordHasher.HashPassword(password);
 
         var category = CategoryBuilder.Build(user);
+        var expense = ExpenseBuilder.Build(user, category);
         
+        expense.CategoryId  = category.Id;
+
         await dbContext.Users.AddAsync(user);
-        await dbContext.SaveChangesAsync();
         await dbContext.Categories.AddAsync(category);
+        await dbContext.Expenses.AddAsync(expense);
 
         await dbContext.SaveChangesAsync();
-        
+
         var user1AccessToken = accessTokenGenerator.Generate(user);
-        
-        User1 = new UserIdentityManager(user, category, password, user1AccessToken);
-        
+
+        User1 = new UserIdentityManager(user, category, expense, password, user1AccessToken);
+
         TOKEN_USER_NOT_FOUND_IN_DATABASE = accessTokenGenerator.Generate(new FinancialManager.Domain.Entities.User());
     }
 

@@ -64,7 +64,6 @@ public abstract class BaseIntegrationTest : IClassFixture<FinancialManagerApplic
         if(string.IsNullOrWhiteSpace(accessToken) == false)
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
     }
-
     
     public void Dispose()
     {
