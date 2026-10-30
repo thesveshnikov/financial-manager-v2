@@ -84,4 +84,7 @@
     <data name="NOT_FOUND" xml:space="preserve">
         <value>We couldn’t find this {0}.</value>
     </data>
+    <data name="EXPIRED_REFRESH_TOKEN" xml:space="preserve">
+        <value>Your session has expired. Please sign in again.</value>
+    </data>
 </root>

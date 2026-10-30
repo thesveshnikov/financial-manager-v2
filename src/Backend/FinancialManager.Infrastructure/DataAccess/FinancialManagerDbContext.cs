@@ -1,19 +1,18 @@
-using System.Runtime.CompilerServices;
 using FinancialManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-[assembly: InternalsVisibleTo("WebApi.Tests")]
 namespace FinancialManager.Infrastructure.DataAccess;
 
 public class FinancialManagerDbContext : DbContext
 {
-    public FinancialManagerDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) {}
-
+    public FinancialManagerDbContext(DbContextOptions options): base(options) {}
+    
     public DbSet<User> Users { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Expense> Expenses { get; set; }
-    
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
@@ -92,5 +91,7 @@ public class FinancialManagerDbContext : DbContext
                 .HasForeignKey(e => e.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
+
+        modelBuilder.Entity<RefreshToken>().HasOne<User>().WithMany().HasForeignKey(refreshToken => refreshToken.UserId);
     }
 }

@@ -176,5 +176,11 @@ namespace FinancialManager.Exception {
                 return ResourceManager.GetString("NOT_FOUND", resourceCulture);
             }
         }
+        
+        public static string EXPIRED_REFRESH_TOKEN {
+            get {
+                return ResourceManager.GetString("EXPIRED_REFRESH_TOKEN", resourceCulture);
+            }
+        }
     }
 }

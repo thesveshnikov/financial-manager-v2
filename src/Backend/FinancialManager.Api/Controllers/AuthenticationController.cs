@@ -1,4 +1,5 @@
 using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
+using FinancialManager.Application.UseCases.Token.UseRefreshToken;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,18 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login(
         [FromServices] ILoginWithEmailAndPasswordUseCase useCase,
         [FromBody] RequestLoginJson request)
+    {
+        var response = await useCase.Execute(request);
+        
+        return Ok(response);
+    }
+
+    [HttpPost("token/refresh")]
+    [ProducesResponseType(typeof(ResponseTokensJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> UseRefreshToken(
+        [FromServices] IUseRefreshTokenUseCase useCase,
+        [FromBody] RequestNewTokenJson request)
     {
         var response = await useCase.Execute(request);
         

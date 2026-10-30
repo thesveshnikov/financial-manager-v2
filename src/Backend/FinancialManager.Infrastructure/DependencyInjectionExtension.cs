@@ -3,6 +3,7 @@ using FinancialManager.Domain.Identity;
 using FinancialManager.Domain.Repositories;
 using FinancialManager.Domain.Repositories.Category;
 using FinancialManager.Domain.Repositories.Expense;
+using FinancialManager.Domain.Repositories.RefreshToken;
 using FinancialManager.Domain.Repositories.User;
 using FinancialManager.Domain.Security.PasswordHashing;
 using FinancialManager.Domain.Security.Tokens;
@@ -11,6 +12,7 @@ using FinancialManager.Infrastructure.DataAccess.Repositories;
 using FinancialManager.Infrastructure.Identity;
 using FinancialManager.Infrastructure.Security.PasswordHashing;
 using FinancialManager.Infrastructure.Security.Tokens.Access;
+using FinancialManager.Infrastructure.Security.Tokens.Refresh;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -67,6 +69,10 @@ public static class DependencyInjectionExtension
             services.AddScoped<IExpenseWriteOnlyRepository, ExpenseRepository>();
             services.AddScoped<IExpenseReadOnlyRepository, ExpenseRepository>();
             services.AddScoped<IExpenseUpdateOnlyRepository, ExpenseRepository>();
+            
+            services.AddScoped<IRefreshTokenWriteOnlyRepository, RefreshTokenRepository>();
+            services.AddScoped<IRefreshTokenReadOnlyRepository, RefreshTokenRepository>();
+            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
         }
 
         private void AddSecurity(IConfiguration configuration)
