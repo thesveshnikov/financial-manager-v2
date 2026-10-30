@@ -3,6 +3,7 @@ using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Application.UseCases.Category.UpdateById;
+using FinancialManager.Application.UseCases.Expense.GetAll;
 using FinancialManager.Application.UseCases.Expense.Register;
 using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 using FinancialManager.Application.UseCases.User.ChangePassword;
@@ -37,6 +38,8 @@ public static class DependencyInjectionExtension
             services.AddScoped<IDeleteCategoryByIdUseCase, DeleteCategoryByIdUseCase>();
 
             services.AddScoped<IRegisterExpenseUseCase, RegisterExpenseUseCase>();
+            services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
+            
         }
     }
 }
