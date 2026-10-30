@@ -2,7 +2,7 @@ using FinancialManager.Domain.Repositories.Expense;
 using FinancialManager.Exception;
 using FinancialManager.Exception.ExceptionsBase;
 
-namespace FinancialManager.Application.UseCases.Expense.Delete;
+namespace FinancialManager.Application.UseCases.Expense.DeleteById;
 
 public class DeleteExpenseByIdUseCase : IDeleteExpenseByIdUseCase
 {

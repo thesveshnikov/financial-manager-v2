@@ -3,7 +3,7 @@ using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Application.UseCases.Category.UpdateById;
-using FinancialManager.Application.UseCases.Expense.Delete;
+using FinancialManager.Application.UseCases.Expense.DeleteById;
 using FinancialManager.Application.UseCases.Expense.GetAll;
 using FinancialManager.Application.UseCases.Expense.GetById;
 using FinancialManager.Application.UseCases.Expense.Register;

@@ -1,4 +1,4 @@
-using FinancialManager.Application.UseCases.Expense.Delete;
+using FinancialManager.Application.UseCases.Expense.DeleteById;
 using FinancialManager.Application.UseCases.Expense.GetAll;
 using FinancialManager.Application.UseCases.Expense.GetById;
 using FinancialManager.Application.UseCases.Expense.Register;

@@ -1,4 +1,4 @@
-namespace FinancialManager.Application.UseCases.Expense.Delete;
+namespace FinancialManager.Application.UseCases.Expense.DeleteById;
 
 public interface IDeleteExpenseByIdUseCase
 {
