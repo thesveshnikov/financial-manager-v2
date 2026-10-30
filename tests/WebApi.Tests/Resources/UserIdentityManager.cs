@@ -7,19 +7,22 @@ public class UserIdentityManager
     private readonly FinancialManager.Domain.Entities.Expense _expense;
     private readonly string _password;
     private readonly string _accessToken;
+    private readonly string _refreshToken;
 
     public UserIdentityManager(
         FinancialManager.Domain.Entities.User user,
         FinancialManager.Domain.Entities.Category category,
         FinancialManager.Domain.Entities.Expense expense,
         string password,
-        string accessToken)
+        string accessToken,
+        string refreshToken)
     {
         _user = user;
         _category = category;
         _expense = expense;
         _password = password;
         _accessToken = accessToken;
+        _refreshToken = refreshToken;
     }
 
     public Guid GetId() => _user.Id;
@@ -27,6 +30,7 @@ public class UserIdentityManager
     public string GetEmail() => _user.Email;
     public string GetPassword() => _password;
     public string GetAccessToken() => _accessToken;
+    public string GetRefreshToken() => _refreshToken;
     public FinancialManager.Domain.Entities.Category GetCategory() => _category;
     public FinancialManager.Domain.Entities.Expense GetExpense() => _expense;
 }
