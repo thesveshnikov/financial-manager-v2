@@ -17,6 +17,16 @@ public class ExpenseRepository : IExpenseWriteOnlyRepository, IExpenseReadOnlyRe
         .Expenses
         .AddAsync(expense);
 
+    public async Task<bool> Delete(Guid id)
+    {
+        var rows = await _dbContext
+            .Expenses
+            .Where(expense => expense.Active && expense.Id.Equals(id))
+            .ExecuteDeleteAsync();
+
+        return rows > 0;
+    }
+
     public async Task<IList<Expense>> GetAll(Guid userId) => await _dbContext
         .Expenses
         .AsNoTracking()

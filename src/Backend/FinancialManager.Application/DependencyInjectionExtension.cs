@@ -3,6 +3,7 @@ using FinancialManager.Application.UseCases.Category.GetAll;
 using FinancialManager.Application.UseCases.Category.GetById;
 using FinancialManager.Application.UseCases.Category.Register;
 using FinancialManager.Application.UseCases.Category.UpdateById;
+using FinancialManager.Application.UseCases.Expense.Delete;
 using FinancialManager.Application.UseCases.Expense.GetAll;
 using FinancialManager.Application.UseCases.Expense.GetById;
 using FinancialManager.Application.UseCases.Expense.Register;
@@ -43,6 +44,7 @@ public static class DependencyInjectionExtension
             services.AddScoped<IGetAllExpensesUseCase, GetAllExpensesUseCase>();
             services.AddScoped<IGetExpenseByIdUseCase, GetExpenseByIdUseCase>();
             services.AddScoped<IUpdateExpenseByIdUseCase, UpdateExpenseByIdUseCase>();
+            services.AddScoped<IDeleteExpenseByIdUseCase, DeleteExpenseByIdUseCase>();
         }
     }
 }
