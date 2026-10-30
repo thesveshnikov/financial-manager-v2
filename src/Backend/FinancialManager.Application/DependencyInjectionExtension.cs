@@ -11,6 +11,7 @@ using FinancialManager.Application.UseCases.Expense.UpdateById;
 using FinancialManager.Application.UseCases.Login.WithEmailAndPassword;
 using FinancialManager.Application.UseCases.Token.UseRefreshToken;
 using FinancialManager.Application.UseCases.User.ChangePassword;
+using FinancialManager.Application.UseCases.User.DeleteAccount;
 using FinancialManager.Application.UseCases.User.Profile;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Application.UseCases.User.Update;
@@ -33,6 +34,8 @@ public static class DependencyInjectionExtension
             services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
             services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
             services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+            services.AddScoped<IDeleteUserAccountPermanentlyUseCase, DeleteUserAccountPermanentlyUseCase>();
+            services.AddScoped<IDeleteUserAccountUseCase, DeleteUserAccountUseCase>();
             services.AddScoped<ILoginWithEmailAndPasswordUseCase, LoginWithEmailAndPasswordUseCase>();
 
             services.AddScoped<IRegisterCategoryUseCase, RegisterCategoryUseCase>();

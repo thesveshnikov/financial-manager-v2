@@ -1,4 +1,5 @@
 using FinancialManager.Application.UseCases.User.ChangePassword;
+using FinancialManager.Application.UseCases.User.DeleteAccount;
 using FinancialManager.Application.UseCases.User.Profile;
 using FinancialManager.Application.UseCases.User.Register;
 using FinancialManager.Application.UseCases.User.Update;
@@ -58,6 +59,16 @@ public class UsersController : ControllerBase
     {
         await useCase.Execute(request);
 
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete([FromServices] IDeleteUserAccountUseCase useCase)
+    {
+        await useCase.Execute();
+        
         return NoContent();
     }
 }
