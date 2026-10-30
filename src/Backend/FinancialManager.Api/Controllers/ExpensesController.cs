@@ -1,4 +1,5 @@
 using FinancialManager.Application.UseCases.Expense.GetAll;
+using FinancialManager.Application.UseCases.Expense.GetById;
 using FinancialManager.Application.UseCases.Expense.Register;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
@@ -30,6 +31,18 @@ public class ExpensesController : ControllerBase
     public async Task<IActionResult> GetAll([FromServices] IGetAllExpensesUseCase useCase)
     {
         var response = await useCase.Execute();
+
+        return Ok(response);
+    }
+
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(ResponseExpenseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IGetExpenseByIdUseCase useCase,
+        [FromRoute] Guid id)
+    {
+        var response = await useCase.Execute(id);
 
         return Ok(response);
     }

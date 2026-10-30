@@ -22,4 +22,10 @@ public class ExpenseRepository : IExpenseWriteOnlyRepository, IExpenseReadOnlyRe
         .AsNoTracking()
         .Where(expense => expense.UserId == userId)
         .ToListAsync();
+
+    public async Task<Expense?> GetById(Guid id) => await _dbContext
+        .Expenses
+        .AsNoTracking()
+        .Where(expense => expense.Id == id)
+        .FirstOrDefaultAsync();
 }
