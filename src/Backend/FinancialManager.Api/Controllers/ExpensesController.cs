@@ -1,6 +1,7 @@
 using FinancialManager.Application.UseCases.Expense.GetAll;
 using FinancialManager.Application.UseCases.Expense.GetById;
 using FinancialManager.Application.UseCases.Expense.Register;
+using FinancialManager.Application.UseCases.Expense.UpdateById;
 using FinancialManager.Communication.Requests;
 using FinancialManager.Communication.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -45,5 +46,19 @@ public class ExpensesController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateExpenseByIdUseCase useCase,
+        [FromRoute] Guid id,
+        [FromBody] RequestExpenseJson request)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
     }
 }

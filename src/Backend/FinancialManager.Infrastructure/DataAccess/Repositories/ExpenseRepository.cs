@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialManager.Infrastructure.DataAccess.Repositories;
 
-public class ExpenseRepository : IExpenseWriteOnlyRepository, IExpenseReadOnlyRepository
+public class ExpenseRepository : IExpenseWriteOnlyRepository, IExpenseReadOnlyRepository, IExpenseUpdateOnlyRepository
 {
     private readonly FinancialManagerDbContext _dbContext;
 
@@ -23,9 +23,14 @@ public class ExpenseRepository : IExpenseWriteOnlyRepository, IExpenseReadOnlyRe
         .Where(expense => expense.UserId == userId)
         .ToListAsync();
 
-    public async Task<Expense?> GetById(Guid id) => await _dbContext
+    async Task<Expense?> IExpenseReadOnlyRepository.GetById(Guid id) => await _dbContext
         .Expenses
         .AsNoTracking()
+        .Where(expense => expense.Id == id) 
+        .FirstOrDefaultAsync();
+
+    async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(Guid id) => await _dbContext
+        .Expenses
         .Where(expense => expense.Id == id)
         .FirstOrDefaultAsync();
 }
