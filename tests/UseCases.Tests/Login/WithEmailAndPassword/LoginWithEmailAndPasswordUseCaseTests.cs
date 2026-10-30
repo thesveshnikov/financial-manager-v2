@@ -28,7 +28,7 @@ public class LoginWithEmailAndPasswordUseCaseTests
         result.Tokens.ShouldNotBeNull();
         result.Name.ShouldBe(user.Name);
         result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
-        result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
+        result.Tokens.RefreshToken.ShouldNotBeNullOrEmpty();
     }
 
     [Fact]
@@ -72,6 +72,9 @@ public class LoginWithEmailAndPasswordUseCaseTests
     private LoginWithEmailAndPasswordUseCase CreateUseCase(string? password = null, FinancialManager.Domain.Entities.User? user = null)
     {
         var accessTokenGenerator = IAccessTokenGeneratorBuilder.Build();
+        var refreshTokenGenerator = IRefreshTokenGeneratorBuilder.Build();
+        var refreshTokenWriteOnlyRepository = IRefreshTokenWriteOnlyRepositoryBuilder.Build();
+        var unitOfWork = IUnitOfWorkBuilder.Build();
         var passwordHasherBuilder = new IPasswordHasherBuilder();
         var userReadOnlyRepositoryBuilder = new IUserReadOnlyRepositoryBuilder();
         if(user is not null)
@@ -80,6 +83,6 @@ public class LoginWithEmailAndPasswordUseCaseTests
         if(string.IsNullOrWhiteSpace(password) == false)
             passwordHasherBuilder.VerifyPassword(password);
 
-        return new LoginWithEmailAndPasswordUseCase(passwordHasherBuilder.Build(), userReadOnlyRepositoryBuilder.Build(), accessTokenGenerator);
+        return new LoginWithEmailAndPasswordUseCase(passwordHasherBuilder.Build(), userReadOnlyRepositoryBuilder.Build(), refreshTokenWriteOnlyRepository, accessTokenGenerator, refreshTokenGenerator, unitOfWork);
     }
 }

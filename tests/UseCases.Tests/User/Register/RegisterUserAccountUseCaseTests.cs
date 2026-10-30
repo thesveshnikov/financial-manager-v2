@@ -24,7 +24,7 @@ public class RegisterUserAccountUseCaseTests
         result.Tokens.ShouldNotBeNull();
         result.Name.ShouldBe(request.Name);
         result.Tokens.AccessToken.ShouldNotBeNullOrEmpty();
-        result.Tokens.RefreshToken.ShouldBeNullOrEmpty();
+        result.Tokens.RefreshToken.ShouldNotBeNullOrEmpty();
     }
 
     [Fact]
@@ -67,13 +67,15 @@ public class RegisterUserAccountUseCaseTests
     private RegisterUserAccountUseCase CreateUseCase(string? emailThatAlreadyExists = null)
     {
         var accessTokenGenerator = IAccessTokenGeneratorBuilder.Build();
+        var refreshTokenGenerator = IRefreshTokenGeneratorBuilder.Build();
         var unitOfWork = IUnitOfWorkBuilder.Build();
         var userWriteOnlyRepository = IUserWriteOnlyRepositoryBuilder.Build();
         var passwordHasher = new IPasswordHasherBuilder().Build();
         var userReadOnlyRepositoryBuilder = new IUserReadOnlyRepositoryBuilder();
+        var refreshTokenWriteOnlyRepository = IRefreshTokenWriteOnlyRepositoryBuilder.Build();
         if(string.IsNullOrWhiteSpace(emailThatAlreadyExists) == false)
             userReadOnlyRepositoryBuilder.ExistsActiveUserWithEmail(emailThatAlreadyExists);
 
-        return new RegisterUserAccountUseCase(passwordHasher, userWriteOnlyRepository, userReadOnlyRepositoryBuilder.Build(), accessTokenGenerator, unitOfWork);
+        return new RegisterUserAccountUseCase(userReadOnlyRepositoryBuilder.Build(), userWriteOnlyRepository, refreshTokenWriteOnlyRepository, passwordHasher, unitOfWork, accessTokenGenerator, refreshTokenGenerator);
     }
 }
