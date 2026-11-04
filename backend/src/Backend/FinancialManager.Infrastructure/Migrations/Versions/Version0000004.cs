@@ -1,3 +1,4 @@
+using System.Data;
 using FluentMigrator;
 
 namespace FinancialManager.Infrastructure.Migrations.Versions;
@@ -13,6 +14,6 @@ public class Version0000004 : ForwardOnlyMigration
             .WithColumn("Value").AsString(255).NotNullable()
             .WithColumn("CreatedAt").AsDateTime().NotNullable()
             .WithColumn("UserId").AsGuid().NotNullable()
-            .ForeignKey("FK_RefreshTokens_Users_UserId", "Users", "Id");
+            .ForeignKey("FK_RefreshTokens_Users_UserId", "Users", "Id").OnDelete(Rule.Cascade);
     }
 }

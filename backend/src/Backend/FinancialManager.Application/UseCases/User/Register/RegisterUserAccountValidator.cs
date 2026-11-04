@@ -12,13 +12,13 @@ public class RegisterUserAccountValidator : AbstractValidator<RequestRegisterUse
         RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_NAME_REQUIRED);
         RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceMessagesException.VALIDATION_EMAIL_REQUIRED);
         RuleFor(user => user.Password).Password();
-        RuleFor(user => user.DateOfBirth).Must(For13Years).WithMessage(ResourceMessagesException.VALIDATION_DATE_OF_BIRTH_INVALID);
+        RuleFor(user => user.DateOfBirthday).Must(For13Years).WithMessage(ResourceMessagesException.VALIDATION_DATE_OF_BIRTH_INVALID);
         When(user => string.IsNullOrWhiteSpace(user.Email) == false, () =>
         {
             RuleFor(user => user.Email).EmailAddress().WithMessage(ResourceMessagesException.VALIDATION_EMAIL_INVALID);
         });
     }
-    
+
     private bool For13Years(DateTime date)
     {
         var limit = DateTime.Now.AddYears(-13);

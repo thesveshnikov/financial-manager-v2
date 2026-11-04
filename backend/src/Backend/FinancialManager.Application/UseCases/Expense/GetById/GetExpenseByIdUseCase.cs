@@ -15,7 +15,7 @@ public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
     {
         _repository = repository;
     }
-    
+
     public async Task<ResponseExpenseJson> Execute(Guid id)
     {
         var expense = await _repository.GetById(id);
@@ -32,7 +32,8 @@ public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
             Amount = expense.Amount,
             PaymentMethod = (PaymentMethod)expense.PaymentMethod,
             Type = (Type)expense.Type,
-            ExpenseDate = expense.ExpenseDate
+            ExpenseDate = expense.ExpenseDate,
+            CategoryId = (Guid)expense.CategoryId!
         };
     }
 }
