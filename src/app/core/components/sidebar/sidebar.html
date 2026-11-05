@@ -1,0 +1,19 @@
+<aside class="sidebar">
+  <div class="brand">Financial Manager</div>
+
+  <nav class="nav">
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Dashboard
+    </a>
+
+    <a routerLink="/expenses" routerLinkActive="active">Expenses</a>
+    <a routerLink="/categories" routerLinkActive="active">Categories</a>
+    <a routerLink="/profile" routerLinkActive="active">Profile</a>
+  </nav>
+
+  <button (click)="onLogout()" class="logout">Logout</button>
+</aside>
