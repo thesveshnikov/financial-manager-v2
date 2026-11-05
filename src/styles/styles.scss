@@ -1,0 +1,272 @@
+@use 'variables' as *;
+
+:root {
+  color-scheme: $color-scheme;
+}
+
+* {
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+body {
+  margin: 0;
+  background: $bg;
+  color: $text;
+  font:
+    15px $font-primary,
+    Arial,
+    sans-serif;
+  min-height: 100vh;
+}
+
+a {
+  color: #93c5fd;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1 {
+  font-size: 1.75em;
+  margin: 0 0 1.5em;
+}
+
+h2 {
+  font-size: 1.25em;
+  margin: 0 0 1.125em;
+}
+
+h3 {
+  font-size: 1.125em;
+  margin: 0 0 0.75em;
+}
+
+p {
+  line-height: 1.6;
+}
+
+.muted {
+  color: $muted;
+}
+
+.subtle {
+  font-size: 0.75em;
+  color: $muted;
+}
+
+button,
+.button {
+  display: inline-block;
+  border: 0;
+  border-radius: 0.5em;
+  padding: 0.75em 1em;
+  background: #262626;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    filter: brightness(1.15);
+    text-decoration: none;
+  }
+
+  &.primary {
+    background: $accent;
+  }
+
+  &.danger {
+    background: $danger;
+  }
+}
+
+.primary {
+  background: $accent;
+}
+
+.full {
+  width: 100%;
+}
+
+.panel,
+.stat {
+  background: $panel;
+  border: 1px solid $border;
+  border-radius: 0.625em;
+  padding: 1.375em;
+  margin-bottom: 1.375em;
+}
+
+.field {
+  margin: 0 0 1.125em;
+}
+
+label {
+  display: block;
+  font-size: 0.75em;
+  color: #d1d5db;
+  margin-bottom: 0.5em;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: $bg;
+  border: 1px solid #4b5563;
+  border-radius: 0.5em;
+  padding: 0.75em;
+  color: $text;
+  font: inherit;
+}
+
+input[type='checkbox'] {
+  width: auto;
+  margin-right: 0.375em;
+}
+
+input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 0.75em 0.625em;
+  border-bottom: 1px solid #303030;
+}
+
+th {
+  color: #d1d5db;
+  font-size: 0.75em;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  min-height: 100vh;
+  width: 25.375em;
+  flex: none;
+  background: $panel;
+  border-right: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  padding: 1.375em 1.25em;
+  border-bottom: 1px solid $border;
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.nav {
+  padding: 1.125em 0.75em;
+  flex: 1;
+
+  a {
+    display: block;
+    padding: 0.75em 0.875em;
+    margin: 0.25em 0;
+    border-radius: 0.5em;
+    color: #d1d5db;
+
+    &.active,
+    &:hover {
+      background: $bg;
+      color: white;
+    }
+  }
+}
+
+.logout {
+  margin: 1em;
+  background: $danger;
+  text-align: left;
+}
+
+.main {
+  padding: 2em;
+  flex: 1;
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  gap: 0.75em;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  gap: 0.625em;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25em;
+}
+
+.tag {
+  display: inline-block;
+  border-radius: 1.25em;
+  background: #262626;
+  padding: 0.3125em 0.625em;
+  color: #d1d5db;
+  font-size: 0.75em;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 20.625em;
+  }
+}
+
+@media (max-width: 650px) {
+  .layout {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5em;
+  }
+
+  .nav a {
+    padding: 0.5em;
+  }
+
+  .logout {
+    margin: 0.5em;
+  }
+
+  .main {
+    padding: 1.25em;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

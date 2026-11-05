@@ -1,0 +1,36 @@
+@use '../../../../../styles/variables' as *;
+
+.form-card {
+  padding: 2em;
+  width: 36em;
+  background: $panel;
+  border: 1px solid $border;
+  border-radius: 0.625em;
+
+  h1 {
+    margin-bottom: 1.5em;
+    font-size: 1.5em;
+  }
+
+  app-register-input,
+  app-register-password,
+  app-register-terms {
+    display: block;
+  }
+
+  .success {
+    padding: 0.625em;
+    margin-bottom: 1em;
+    background: #dcfce7;
+    border-radius: 0.5em;
+    color: $success;
+    font-size: 0.875em;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card {
+    padding: 1.5em;
+  }
+}

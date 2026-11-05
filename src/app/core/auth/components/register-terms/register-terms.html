@@ -1,0 +1,12 @@
+<div class="field">
+  <label class="terms">
+    <input type="checkbox" [formControl]="control()" />
+
+    I accept the
+    <a href="/terms">Terms and Conditions</a>
+  </label>
+
+  @if (showError) {
+    <small class="error"> You must accept the Terms and Conditions. </small>
+  }
+</div>

@@ -1,0 +1,43 @@
+<form class="form-card" [formGroup]="form()" (ngSubmit)="submittedForm.emit()">
+  <h1>Create your account</h1>
+
+  <app-register-input
+    label="Username"
+    placeholder="Your name"
+    formControlName="userName"
+    [invalid]="showError('userName')"
+    [errorMessage]="getControlError('userName')"
+  />
+
+  <app-register-input
+    label="Your email"
+    placeholder="johndoe@email.com"
+    type="email"
+    formControlName="email"
+    [invalid]="showError('email')"
+    [errorMessage]="getControlError('email')"
+  />
+
+  <app-register-password [form]="form()" [submitted]="submitted()" />
+
+  <app-register-input
+    label="Your date of birth"
+    type="date"
+    formControlName="dateOfBirthday"
+    [invalid]="showError('dateOfBirthday')"
+    [errorMessage]="getControlError('dateOfBirthday')"
+  />
+
+  <app-register-terms [control]="$any(form().get('acceptTerms'))" [submitted]="submitted()" />
+
+  @if (submitSuccess()) {
+    <p class="success">Registration form submitted successfully!</p>
+  }
+
+  <button class="primary full" type="submit">Register</button>
+
+  <p class="muted">
+    Already have an account?
+    <a routerLink="/login">Login here</a>
+  </p>
+</form>

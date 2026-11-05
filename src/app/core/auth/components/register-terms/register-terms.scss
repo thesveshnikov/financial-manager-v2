@@ -1,0 +1,24 @@
+@use '../../../../../styles/variables' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375em;
+
+  .terms {
+    display: flex;
+    align-items: center;
+    gap: 0.375em;
+    font-size: 0.875em;
+    line-height: 1.6;
+
+    input {
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    color: $error;
+    font-size: 0.75em;
+  }
+}
