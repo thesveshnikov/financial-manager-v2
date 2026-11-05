@@ -99,6 +99,7 @@ button,
   border-radius: 0.625em;
   padding: 1.375em;
   margin-bottom: 1.375em;
+  height: 100%;
 }
 
 .field {
@@ -158,7 +159,7 @@ th {
 
 .sidebar {
   min-height: 100vh;
-  width: 25.375em;
+  width: 20vw;
   flex: none;
   background: $panel;
   border-right: 1px solid $border;

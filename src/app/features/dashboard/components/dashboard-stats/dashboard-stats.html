@@ -1,0 +1,25 @@
+<section class="stats">
+  <article class="stat">
+    <span class="muted">Total Expenses</span>
+    <strong>{{ totalExpenses() | currency: 'BRL' }}</strong>
+    <span class="subtle">{{ totalTransactions() }} transactions</span>
+  </article>
+
+  <article class="stat">
+    <span class="muted">Fixed Expenses</span>
+    <strong>{{ fixedExpenses() | currency: 'BRL' }}</strong>
+    <span class="subtle">{{ fixedCount() }} expenses</span>
+  </article>
+
+  <article class="stat">
+    <span class="muted">Variable Expenses</span>
+    <strong>{{ variableExpenses() | currency: 'BRL' }}</strong>
+    <span class="subtle">{{ variableCount() }} expenses</span>
+  </article>
+
+  <article class="stat">
+    <span class="muted">This Month</span>
+    <strong>{{ monthlyExpenses() | currency: 'BRL' }}</strong>
+    <span class="subtle">{{ monthlyCount() }} expenses</span>
+  </article>
+</section>

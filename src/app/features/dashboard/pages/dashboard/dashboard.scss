@@ -1,28 +1,19 @@
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1em;
-  margin-bottom: 1.375em;
-}
+.row {
+  margin-bottom: 2rem;
 
-.stat strong {
-  font-size: 1.5em;
-  display: block;
-  margin: 0.75em 0;
-}
-
-.dashboard-chart-placeholder {
-  min-height: 9.375em;
-}
-
-@media (max-width: 900px) {
-  .stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  h1 {
+    margin-bottom: 0;
   }
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1em;
+}
+
 @media (max-width: 650px) {
-  .stats {
+  .grid {
     grid-template-columns: 1fr;
   }
 

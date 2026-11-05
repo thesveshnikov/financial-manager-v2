@@ -1,0 +1,16 @@
+<article class="panel">
+  <h2>Recent Expenses</h2>
+
+  @if (expenses().length > 0) {
+    @for (expense of expenses(); track expense.id) {
+      <div class="expense-item">
+        <span>{{ expense.name }}: </span>
+        <strong>{{ expense.amount | currency: 'BRL' }}</strong>
+      </div>
+    }
+  } @else {
+    <p class="muted">No expenses registered yet.</p>
+  }
+
+  <a routerLink="/expenses">View All Expenses</a>
+</article>

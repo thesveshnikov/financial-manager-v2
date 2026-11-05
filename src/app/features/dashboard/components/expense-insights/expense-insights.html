@@ -1,0 +1,28 @@
+<article class="panel">
+  <h2>Expense Summary</h2>
+
+  <div class="expense-item">
+    <span class="muted">Most expensive category: </span>
+    <strong>{{ mostExpensiveCategory() }}</strong>
+  </div>
+
+  <div class="expense-item">
+    <span class="muted">Category total: </span>
+    <strong>{{ mostExpensiveCategoryTotal() | currency: 'BRL' }}</strong>
+  </div>
+
+  <div class="expense-item">
+    <span class="muted">Average expense: </span>
+    <strong>{{ averageExpense() | currency: 'BRL' }}</strong>
+  </div>
+
+  <div class="expense-item">
+    <span class="muted">Highest expense: </span>
+    <strong>{{ highestExpense() | currency: 'BRL' }}</strong>
+  </div>
+
+  <div class="expense-item">
+    <span class="muted">Lowest expense: </span>
+    <strong>{{ lowestExpense() | currency: 'BRL' }}</strong>
+  </div>
+</article>

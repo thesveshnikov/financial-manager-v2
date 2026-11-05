@@ -1,0 +1,26 @@
+<article class="panel">
+  <h2>Expenses by Category</h2>
+
+  @if (categories.length > 0) {
+    @for (category of categories; track category.id) {
+      <div class="category-item">
+        <div class="expense-item">
+          <span>{{ category.name }}: </span>
+          <strong>{{ category.total | currency: 'BRL' }}</strong>
+        </div>
+
+        <div class="category-progress">
+          <div class="category-progress-fill" [style.width.%]="category.percentage"></div>
+        </div>
+
+        <span class="subtle">
+          {{ category.percentage | number: '1.1-1' }}% ({{ category.quantity }} expenses)
+        </span>
+      </div>
+    }
+  } @else {
+    <p class="muted">No category data available.</p>
+  }
+
+  <a routerLink="/categories">Manage Categories</a>
+</article>
