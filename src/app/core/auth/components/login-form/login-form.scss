@@ -1,0 +1,33 @@
+@use '../../../../../styles/variables' as *;
+
+.form-card {
+  max-width: 30em;
+  width: 100%;
+  background: $panel;
+  border: 1px solid $border;
+  border-radius: 0.625em;
+  padding: 2em;
+
+  h1 {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  .remember {
+    margin-bottom: 1.375em;
+
+    label {
+      line-height: 1.6;
+    }
+
+    input {
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card {
+    padding: 1.375em;
+  }
+}

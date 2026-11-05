@@ -1,0 +1,16 @@
+<div class="field">
+  <label>{{ label() }}</label>
+
+  <input
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [formControl]="control()"
+    [class.invalid]="showError()"
+  />
+
+  @if (showError()) {
+    <small class="error">
+      {{ errorMessage() }}
+    </small>
+  }
+</div>

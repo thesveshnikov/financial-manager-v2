@@ -1,0 +1,30 @@
+<form class="form-card" [formGroup]="form()" (ngSubmit)="submittedForm.emit()">
+  <h1>Login to your account</h1>
+
+  <app-login-field
+    label="Email"
+    type="email"
+    placeholder="johndoe@email.com"
+    [control]="form().controls.email"
+    [submitted]="submitted()"
+  />
+
+  <app-login-field
+    label="Password"
+    type="password"
+    placeholder="••••••••"
+    [control]="form().controls.password"
+    [submitted]="submitted()"
+  />
+
+  <div class="field remember">
+    <label>
+      <input type="checkbox" />
+      Remember me
+    </label>
+  </div>
+
+  <button class="primary full" type="submit">Login</button>
+
+  <app-login-footer />
+</form>

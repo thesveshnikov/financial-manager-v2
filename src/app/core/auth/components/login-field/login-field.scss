@@ -1,0 +1,30 @@
+@use '../../../../../styles/variables' as *;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375em;
+  margin-bottom: 1.25em;
+
+  input {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid $border;
+    border-radius: 0.5em;
+    outline: none;
+
+    &:focus {
+      border-color: $border;
+    }
+
+    &.invalid {
+      border-color: $error;
+    }
+  }
+
+  .error {
+    color: $error;
+    font-size: 0.75em;
+    line-height: 1.4;
+  }
+}
