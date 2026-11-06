@@ -21,6 +21,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'expenses',
+    loadComponent: () =>
+      import('./features/expenses/pages/expenses/expenses').then((c) => c.Expenses),
+    canMatch: [authGuard],
+  },
+
+  {
     path: '**',
     redirectTo: 'dashboard',
   },

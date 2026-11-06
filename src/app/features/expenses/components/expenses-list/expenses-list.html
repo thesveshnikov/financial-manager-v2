@@ -1,0 +1,78 @@
+<section class="panel">
+  <div class="row">
+    <h2>Expenses List</h2>
+
+    <span class="muted">
+      Showing {{ expenses().length }} of {{ totalExpenses() }} expenses · Total:
+      {{ totalAmount() | currency: 'BRL' : 'symbol' : '1.2-2' }}
+    </span>
+  </div>
+
+  @if (isLoading()) {
+    <div class="muted">Loading expenses...</div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (!isLoading()) {
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (expense of expenses(); track expense.id) {
+            <tr>
+              <td>
+                {{ expense.expenseDate | date: 'dd/MM/yyyy' }}
+              </td>
+
+              <td>{{ expense.name }}</td>
+
+              <td>
+                {{ expense.amount | currency: 'BRL' : 'symbol' : '1.2-2' }}
+              </td>
+
+              <td>
+                {{ getPaymentMethod(expense.paymentMethod) }}
+              </td>
+
+              <td>
+                {{ getCategoryName(expense) }}
+              </td>
+
+              <td>
+                {{ getType(expense.type) }}
+              </td>
+
+              <td>
+                <div class="expense-actions">
+                  <button type="button" (click)="edit.emit(expense)">Edit</button>
+
+                  <button type="button" (click)="delete.emit(expense)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="muted">No expenses found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

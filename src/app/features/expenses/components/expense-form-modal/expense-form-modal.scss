@@ -1,0 +1,103 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.panel {
+  width: 100%;
+  max-width: 36em;
+  box-sizing: border-box;
+  background: #171717;
+  border: 1px solid #374151;
+  border-radius: 0.5em;
+  padding: 1.5em;
+  color: #fff;
+  margin: 0;
+}
+
+.panel h2 {
+  margin: 0 0 1em;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1em;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.25em;
+  color: #d1d5db;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5em 0.75em;
+  color: #fff;
+  background: #0a0a0a;
+  border: 1px solid #4b5563;
+  border-radius: 0.5em;
+}
+
+.error {
+  display: block;
+  margin-top: 0.25em;
+  color: #ef4444;
+  font-size: 0.75em;
+}
+
+.error-message {
+  margin-top: 1em;
+  color: #ef4444;
+  font-size: 0.875em;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75em;
+  margin-top: 1.5em;
+}
+
+.btn {
+  border: 0;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+}
+
+.btn-secondary {
+  background: #4b5563;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+}

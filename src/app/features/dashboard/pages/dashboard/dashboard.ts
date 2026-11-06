@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { ExpensesService } from '../../../../core/services/expenses.service';
 import { CategoriesService } from '../../../../core/services/categories.service';
 
 import { Sidebar } from '../../../../core/components/sidebar/sidebar';
 
-import { Expense } from '../../../../shared/models/expense.model';
-import { Category } from '../../../../shared/models/category.model';
-import { CategorySummary } from '../../../../shared/models/category-summary.model';
+import { Expense } from '../../../expenses/models/expense.model';
+import { Category } from '../../../expenses/models/category.model';
+import { CategorySummary } from '../../models/category-summary.model';
 
 import { DashboardStats } from '../../components/dashboard-stats/dashboard-stats';
 import { RecentExpenses } from '../../components/recent-expenses/recent-expenses';
@@ -23,6 +24,7 @@ import { DashboardActions } from '../../components/dashboard-actions/dashboard-a
     CategorySummaryComponent,
     ExpenseInsights,
     DashboardActions,
+    RouterLink,
   ],
   selector: 'app-dashboard',
   styleUrl: './dashboard.scss',

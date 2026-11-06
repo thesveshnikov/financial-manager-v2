@@ -1,0 +1,41 @@
+<div class="layout">
+  <app-sidebar />
+
+  <main class="main">
+    <div class="row">
+      <h1>Expenses</h1>
+
+      <button class="primary" (click)="openAddModal()">+ Add Expense</button>
+    </div>
+
+    <app-expenses-filters
+      [filters]="filters"
+      [categories]="categories"
+      (filtersChange)="filters = $event"
+    />
+
+    <app-expenses-list
+      [expenses]="filteredExpenses"
+      [categories]="categories"
+      [totalExpenses]="expenses.length"
+      [totalAmount]="totalAmount"
+      [isLoading]="isLoading"
+      [errorMessage]="errorMessage"
+      (edit)="openEditModal($event)"
+      (delete)="openDeleteModal($event)"
+    />
+  </main>
+
+  @if (isFormModalVisible) {
+    <app-expense-form-modal [expense]="selectedExpense" (close)="closeFormModal()" />
+  }
+
+  @if (isDeleteModalVisible && selectedExpense) {
+    <app-delete-expense-modal
+      [expenseName]="selectedExpense.name"
+      [isDeleting]="isDeleting"
+      (confirm)="confirmDelete()"
+      (close)="closeDeleteModal()"
+    />
+  }
+</div>

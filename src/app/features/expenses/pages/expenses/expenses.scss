@@ -1,0 +1,13 @@
+.main > .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+@media (max-width: 650px) {
+  .main > .row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}

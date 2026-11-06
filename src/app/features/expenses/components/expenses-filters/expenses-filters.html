@@ -1,0 +1,106 @@
+<section class="panel">
+  <div class="row">
+    <h2>Filters</h2>
+
+    <button type="button" (click)="clear()">Clear filters</button>
+  </div>
+
+  <div class="filters">
+    <div class="field">
+      <label>Search</label>
+
+      <input
+        type="text"
+        placeholder="Search expenses"
+        [ngModel]="filters().search"
+        (ngModelChange)="update('search', $event)"
+      />
+    </div>
+
+    <div class="field">
+      <label>Type</label>
+
+      <select [ngModel]="filters().type" (ngModelChange)="update('type', $event)">
+        <option value="">All Types</option>
+
+        @for (type of types; track type.value) {
+          <option [value]="type.value">
+            {{ type.label }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Payment Method</label>
+
+      <select [ngModel]="filters().paymentMethod" (ngModelChange)="update('paymentMethod', $event)">
+        <option value="">All Methods</option>
+
+        @for (method of paymentMethods; track method.value) {
+          <option [value]="method.value">
+            {{ method.label }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Category</label>
+
+      <select [ngModel]="filters().category" (ngModelChange)="update('category', $event)">
+        <option value="">All Categories</option>
+
+        @for (category of categories(); track category.id) {
+          <option [value]="category.id">
+            {{ category.name }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label>From</label>
+
+      <input
+        type="date"
+        [ngModel]="filters().fromDate"
+        (ngModelChange)="update('fromDate', $event)"
+      />
+    </div>
+
+    <div class="field">
+      <label>To</label>
+
+      <input type="date" [ngModel]="filters().toDate" (ngModelChange)="update('toDate', $event)" />
+    </div>
+
+    <div class="field">
+      <label>Minimum amount</label>
+
+      <input
+        type="number"
+        min="0"
+        placeholder="0.00"
+        [ngModel]="filters().minAmount"
+        (ngModelChange)="
+          update('minAmount', $event === null || $event === '' ? null : Number($event))
+        "
+      />
+    </div>
+
+    <div class="field">
+      <label>Maximum amount</label>
+
+      <input
+        type="number"
+        min="0"
+        placeholder="0.00"
+        [ngModel]="filters().maxAmount"
+        (ngModelChange)="
+          update('maxAmount', $event === null || $event === '' ? null : Number($event))
+        "
+      />
+    </div>
+  </div>
+</section>

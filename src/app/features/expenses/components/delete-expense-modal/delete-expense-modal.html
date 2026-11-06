@@ -1,0 +1,37 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <section class="panel" (click)="$event.stopPropagation()">
+    <div class="icon-container">
+      <span class="warning-icon">!</span>
+    </div>
+
+    <h2>Delete Expense</h2>
+
+    <p>
+      Are you sure you want to delete
+      <strong>{{ expenseName() }}</strong
+      >?
+    </p>
+
+    <p class="warning-text">This action cannot be undone.</p>
+
+    <div class="actions">
+      <button
+        class="btn btn-secondary"
+        type="button"
+        (click)="closeModal()"
+        [disabled]="isDeleting()"
+      >
+        Cancel
+      </button>
+
+      <button
+        class="btn btn-danger"
+        type="button"
+        (click)="confirmDelete()"
+        [disabled]="isDeleting()"
+      >
+        {{ isDeleting() ? 'Deleting...' : 'Delete Expense' }}
+      </button>
+    </div>
+  </section>
+</div>

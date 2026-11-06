@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { Expense } from '../../shared/models/expense.model';
-import { ExpensePayload } from '../../shared/models/expense-payload.model';
+import { Expense } from '../../features/expenses/models/expense.model';
+import { ExpensePayload } from '../../features/expenses/models/expense-payload.model';
 
 import { environment } from '../../../environments/environment';
 

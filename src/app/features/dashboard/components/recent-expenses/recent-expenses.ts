@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { Expense } from '../../../../shared/models/expense.model';
+import { Expense } from '../../../expenses/models/expense.model';
 
 @Component({
   selector: 'app-recent-expenses',
