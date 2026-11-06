@@ -1,0 +1,34 @@
+<section class="panel categories-list">
+  <h2>Categories List</h2>
+
+  @if (loading()) {
+    <p class="muted">Loading categories...</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (category of categories(); track category.id) {
+          <tr>
+            <td>{{ category.name }}</td>
+
+            <td class="category-actions">
+              <button type="button" (click)="edit.emit(category)">Edit</button>
+
+              <button type="button" class="muted" (click)="delete.emit(category)">Delete</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="2" class="muted">No categories registered.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

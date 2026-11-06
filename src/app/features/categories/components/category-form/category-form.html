@@ -1,0 +1,22 @@
+<section class="panel categories-form">
+  <h2>Add Category</h2>
+
+  <form (ngSubmit)="submit()">
+    <div class="field">
+      <label for="category-name">Category name</label>
+
+      <input
+        id="category-name"
+        name="name"
+        [(ngModel)]="name"
+        placeholder="Enter category name"
+        maxlength="100"
+        required
+      />
+    </div>
+
+    <button type="submit" class="primary" [disabled]="!name.trim() || submitting()">
+      {{ submitting() ? 'Adding...' : 'Add Category' }}
+    </button>
+  </form>
+</section>

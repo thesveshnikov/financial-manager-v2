@@ -1,0 +1,40 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <section class="panel" (click)="$event.stopPropagation()">
+    <h2>Edit Category</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="fields">
+        <div class="field">
+          <label for="name">Name</label>
+
+          <input id="name" type="text" formControlName="name" placeholder="Expense's name" />
+
+          @if (form.controls.name.touched && form.controls.name.invalid) {
+            <small class="error">Name is required.</small>
+          }
+        </div>
+      </div>
+
+      @if (errorMessage) {
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <div class="actions">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          (click)="closeModal()"
+          [disabled]="isSubmitting"
+        >
+          Cancel
+        </button>
+
+        <button class="btn btn-primary" type="submit" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

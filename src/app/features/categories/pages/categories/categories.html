@@ -1,0 +1,32 @@
+<div class="layout">
+  <app-sidebar />
+
+  <main class="main">
+    <h1>Categories</h1>
+
+    <app-category-form (add)="addCategory($event)" />
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <app-categories-list
+      [categories]="categories()"
+      [loading]="loading()"
+      (edit)="editCategory($event)"
+      (delete)="deleteCategory($event)"
+    />
+  </main>
+
+  @if (isDeleteModalVisible && selectedCategory) {
+    <app-delete-category-modal
+      [categoryName]="selectedCategory.name"
+      (confirm)="confirmDeleteCategory()"
+      (close)="closeDeleteModal()"
+    />
+  }
+
+  @if (isEditModalVisible && selectedCategory) {
+    <app-edit-category-modal [category]="selectedCategory" (close)="closeEditModal()" />
+  }
+</div>

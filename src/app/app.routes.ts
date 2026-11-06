@@ -28,6 +28,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'categories',
+    loadComponent: () =>
+      import('./features/categories/pages/categories/categories').then((c) => c.Categories),
+    canMatch: [authGuard],
+  },
+
+  {
     path: '**',
     redirectTo: 'dashboard',
   },
