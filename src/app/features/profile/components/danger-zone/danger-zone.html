@@ -1,0 +1,11 @@
+<section class="panel danger-zone">
+  <h2>Danger Zone</h2>
+
+  <h3>Delete Account</h3>
+
+  <p class="muted">This action cannot be undone.</p>
+
+  <button type="button" class="danger" (click)="delete.emit()" [disabled]="deleting()">
+    {{ deleting() ? 'Deleting...' : 'Delete Account' }}
+  </button>
+</section>

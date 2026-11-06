@@ -35,6 +35,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'profile',
+    loadComponent: () => import('./features/profile/pages/profile/profile').then((c) => c.Profile),
+    canMatch: [authGuard],
+  },
+
+  {
     path: '**',
     redirectTo: 'dashboard',
   },

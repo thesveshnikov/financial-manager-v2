@@ -6,12 +6,11 @@ import { ExpensesService } from '../../../../core/services/expenses.service';
 import { CategoriesService } from '../../../../core/services/categories.service';
 
 import { Expense } from '../../models/expense.model';
-import { Category } from '../../models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 import { ExpensePayload } from '../../models/expense-payload.model';
 
 @Component({
   selector: 'app-expense-form-modal',
-  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './expense-form-modal.html',
   styleUrl: './expense-form-modal.scss',

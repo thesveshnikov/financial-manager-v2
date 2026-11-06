@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 
-import { Category } from '../../../expenses/models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 
 @Component({
   selector: 'app-categories-list',

@@ -1,0 +1,32 @@
+<div class="layout">
+  <app-sidebar />
+
+  <main class="main">
+    <h1>Profile</h1>
+
+    @if (loading) {
+      <p>Loading profile...</p>
+    } @else {
+      <app-profile-form
+        [form]="form"
+        [editing]="editing"
+        [saving]="saving"
+        [errorMessage]="errorMessage"
+        [successMessage]="successMessage"
+        (edit)="editProfile()"
+        (cancel)="cancelEdit()"
+        (save)="saveChanges()"
+      />
+
+      <div class="account-information-danger-zone">
+        <app-account-information [memberSince]="null" [userId]="null" status="Active" />
+
+        <app-danger-zone [deleting]="deleting" (delete)="openDeleteModal()" />
+      </div>
+    }
+  </main>
+
+  @if (isAddModalVisible) {
+    <app-delete-user-modal (close)="closeDeleteModal()" (confirm)="deleteAccount()" />
+  }
+</div>

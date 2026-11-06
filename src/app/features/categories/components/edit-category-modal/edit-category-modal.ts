@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CategoriesService } from '../../../../core/services/categories.service';
 
-import { Category } from '../../../expenses/models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 
 @Component({
   selector: 'app-edit-category-modal',

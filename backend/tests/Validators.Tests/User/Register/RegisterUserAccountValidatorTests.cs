@@ -18,7 +18,7 @@ public class RegisterUserAccountValidatorTests
 
         result.IsValid.ShouldBeTrue();
     }
-    
+
         [Fact]
     public void Validate_ShouldHaveError_WhenNameIsEmpty()
     {
@@ -95,7 +95,7 @@ public class RegisterUserAccountValidatorTests
     public void Validate_ShouldHaveError_WhenDateIsInvalid()
     {
         var request = RequestRegisterUserAccountJsonBuilder.Build();
-        request.DateOfBirth = DateTime.Now;
+        request.DateOfBirthday = DateTime.Now;
 
         var validator = new RegisterUserAccountValidator();
 

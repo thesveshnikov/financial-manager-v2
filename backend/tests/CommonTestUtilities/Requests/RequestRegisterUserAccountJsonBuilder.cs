@@ -33,7 +33,7 @@ public static class RequestRegisterUserAccountJsonBuilder
                     .OrderBy(_ => f.Random.Int())
                     .ToArray());
             })
-            .RuleFor(request => request.DateOfBirth, f => f.Date.Past().AddYears(-13))
+            .RuleFor(request => request.DateOfBirthday, f => f.Date.Past().AddYears(-13))
             .Generate();
     }
 }

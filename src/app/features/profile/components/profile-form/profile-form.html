@@ -1,0 +1,49 @@
+<section class="panel profile-form">
+  <form [formGroup]="form()" (ngSubmit)="save.emit()">
+    <div class="field">
+      <label for="name">Name</label>
+
+      <input id="name" type="text" placeholder="Your name" formControlName="name" />
+
+      @if (form().get('name')?.touched && form().get('name')?.invalid) {
+        <p class="error">Name is required.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+
+      <input id="email" type="email" placeholder="Email address" formControlName="email" />
+
+      <p class="subtle">Email cannot be changed</p>
+    </div>
+
+    <div class="field">
+      <label for="dateOfBirthday">Date of Birth</label>
+
+      <input id="dateOfBirthday" type="date" formControlName="dateOfBirthday" />
+
+      <p class="subtle">Must be at least 13 years old</p>
+    </div>
+
+    <div class="actions">
+      @if (!editing()) {
+        <button type="button" class="primary" (click)="edit.emit()">Edit Profile</button>
+      } @else {
+        <button type="submit" class="primary" [disabled]="saving() || form().invalid">
+          {{ saving() ? 'Saving...' : 'Save Changes' }}
+        </button>
+
+        <button type="button" (click)="cancel.emit()" [disabled]="saving()">Cancel</button>
+      }
+    </div>
+  </form>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (successMessage()) {
+    <p class="success">{{ successMessage() }}</p>
+  }
+</section>

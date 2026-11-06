@@ -1,0 +1,96 @@
+@use '../../../../../styles/variables' as *;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.panel {
+  width: 100%;
+  max-width: 27em;
+  box-sizing: border-box;
+  padding: 1.5em;
+  color: $text;
+  background: $panel;
+  border: 1px solid $danger;
+  border-radius: 0.5em;
+}
+
+.panel h2 {
+  margin: 0 0 1em;
+  font-size: 1.25em;
+  font-weight: 600;
+  color: $text;
+}
+
+.warning {
+  padding: 1em;
+  background: $border;
+  border-radius: 0.5em;
+}
+
+.warning h3 {
+  margin: 0 0 0.5em;
+  color: $error;
+  font-weight: 600;
+}
+
+.warning p {
+  margin: 0;
+  color: $muted;
+  font-size: 0.875em;
+  line-height: 1.5;
+}
+
+.field {
+  margin-top: 1em;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.5em;
+  color: $muted;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75em;
+  color: $text;
+  background: $bg;
+  border: 1px solid $danger;
+  border-radius: 0.5em;
+  font-family: $font-primary;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75em;
+  padding-top: 1em;
+}
+
+.btn {
+  flex: 1;
+  border: 0;
+  border-radius: 0.5em;
+  padding: 0.625em 1em;
+  color: $text;
+  cursor: pointer;
+  font-family: $font-primary;
+}
+
+.btn-delete {
+  background: $danger;
+}
+
+.btn-cancel {
+  background: $border;
+}

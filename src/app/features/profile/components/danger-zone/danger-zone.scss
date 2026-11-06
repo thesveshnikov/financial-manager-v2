@@ -1,0 +1,13 @@
+@use '../../../../../styles/variables' as *;
+
+.danger-zone {
+  border-color: $danger;
+}
+
+.danger-zone h2 {
+  color: $danger;
+}
+
+.danger-zone .danger {
+  background: $danger;
+}

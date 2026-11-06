@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Category } from '../../features/expenses/models/category.model';
+import { Category } from '../../shared/models/category.model';
 
 import { environment } from '../../../environments/environment';
 

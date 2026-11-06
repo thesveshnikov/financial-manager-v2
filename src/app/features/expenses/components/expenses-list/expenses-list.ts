@@ -2,11 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Expense } from '../../models/expense.model';
-import { Category } from '../../models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 
 @Component({
   selector: 'app-expenses-list',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './expenses-list.html',
   styleUrl: './expenses-list.scss',

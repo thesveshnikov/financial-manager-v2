@@ -7,7 +7,7 @@ import { CategoriesService } from '../../../../core/services/categories.service'
 import { Sidebar } from '../../../../core/components/sidebar/sidebar';
 
 import { Expense } from '../../../expenses/models/expense.model';
-import { Category } from '../../../expenses/models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 import { CategorySummary } from '../../models/category-summary.model';
 
 import { DashboardStats } from '../../components/dashboard-stats/dashboard-stats';

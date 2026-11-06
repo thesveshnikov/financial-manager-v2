@@ -7,7 +7,7 @@ import { ExpensesService } from '../../../../core/services/expenses.service';
 import { CategoriesService } from '../../../../core/services/categories.service';
 
 import { Expense } from '../../models/expense.model';
-import { Category } from '../../models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 import { ExpenseFilters as ExpenseFiltersModel } from '../../models/expense-filters.model';
 
 import { ExpensesFilters } from '../../components/expenses-filters/expenses-filters';
@@ -18,7 +18,6 @@ import { DeleteExpenseModal } from '../../components/delete-expense-modal/delete
 
 @Component({
   selector: 'app-expenses',
-  standalone: true,
   imports: [
     CommonModule,
     Sidebar,

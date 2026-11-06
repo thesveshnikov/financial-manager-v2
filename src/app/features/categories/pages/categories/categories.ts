@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal, viewChild } from '@angular/core';
 import { Sidebar } from '../../../../core/components/sidebar/sidebar';
 import { CategoriesService } from '../../../../core/services/categories.service';
 
-import { Category } from '../../../expenses/models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 
 import { CategoryForm } from '../../components/category-form/category-form';
 import { CategoriesList } from '../../components/categories-list/categories-list';

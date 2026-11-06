@@ -1,12 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { Category } from '../../models/category.model';
+import { Category } from '../../../../shared/models/category.model';
 import { ExpenseFilters as ExpenseFiltersModel } from '../../models/expense-filters.model';
 
 @Component({
   selector: 'app-expenses-filters',
-  standalone: true,
   imports: [FormsModule],
   templateUrl: './expenses-filters.html',
   styleUrl: './expenses-filters.scss',

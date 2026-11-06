@@ -1,0 +1,18 @@
+<section class="panel account-information">
+  <h2>Account Information</h2>
+
+  <p>
+    <span class="muted">Member since</span>
+    {{ memberSince() ?? '—' }}
+  </p>
+
+  <p>
+    <span class="muted">Status: </span>
+    <span class="status-active">{{ status() }}</span>
+  </p>
+
+  <p>
+    <span class="muted">User ID</span>
+    {{ userId() ?? '—' }}
+  </p>
+</section>

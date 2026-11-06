@@ -1,0 +1,11 @@
+.account-information-danger-zone {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5em;
+}
+
+@media (max-width: 768px) {
+  .account-information-danger-zone {
+    grid-template-columns: 1fr;
+  }
+}
