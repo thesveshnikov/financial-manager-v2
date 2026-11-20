@@ -5,5 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-dashboard-actions',
   imports: [RouterLink],
   templateUrl: './dashboard-actions.html',
+  styleUrl: './dashboard-actions.scss',
 })
 export class DashboardActions {}

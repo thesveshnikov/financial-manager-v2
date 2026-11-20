@@ -18,6 +18,7 @@ body {
     Arial,
     sans-serif;
   min-height: 100vh;
+  overflow-y: hidden;
 }
 
 a {
@@ -156,48 +157,6 @@ th {
   min-height: 100vh;
 }
 
-.sidebar {
-  min-height: 100vh;
-  width: 20vw;
-  flex: none;
-  background: $panel;
-  border-right: 1px solid $border;
-  display: flex;
-  flex-direction: column;
-}
-
-.brand {
-  padding: 1.375em 1.25em;
-  border-bottom: 1px solid $border;
-  font-size: 1.25em;
-  font-weight: 700;
-}
-
-.nav {
-  padding: 1.125em 0.75em;
-  flex: 1;
-
-  a {
-    display: block;
-    padding: 0.75em 0.875em;
-    margin: 0.25em 0;
-    border-radius: 0.5em;
-    color: #d1d5db;
-
-    &.active,
-    &:hover {
-      background: $bg;
-      color: white;
-    }
-  }
-}
-
-.logout {
-  margin: 1em;
-  background: $danger;
-  text-align: left;
-}
-
 .main {
   padding: 2em;
   flex: 1;
@@ -211,55 +170,15 @@ th {
   justify-content: space-between;
 }
 
-.actions {
-  display: flex;
-  gap: 0.625em;
-  flex-wrap: wrap;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25em;
 }
 
-.tag {
-  display: inline-block;
-  border-radius: 1.25em;
-  background: #262626;
-  padding: 0.3125em 0.625em;
-  color: #d1d5db;
-  font-size: 0.75em;
-}
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 20.625em;
-  }
-}
-
 @media (max-width: 650px) {
   .layout {
     display: block;
-  }
-
-  .sidebar {
-    width: 100%;
-    min-height: auto;
-  }
-
-  .nav {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0.5em;
-  }
-
-  .nav a {
-    padding: 0.5em;
-  }
-
-  .logout {
-    margin: 0.5em;
   }
 
   .main {

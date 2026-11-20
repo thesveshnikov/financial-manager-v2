@@ -7,7 +7,7 @@
     <app-category-form (add)="addCategory($event)" />
 
     @if (errorMessage()) {
-      <p class="error">{{ errorMessage() }}</p>
+      <p>{{ errorMessage() }}</p>
     }
 
     <app-categories-list

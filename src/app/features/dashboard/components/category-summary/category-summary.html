@@ -3,14 +3,14 @@
 
   @if (categories.length > 0) {
     @for (category of categories; track category.id) {
-      <div class="category-item">
-        <div class="expense-item">
+      <div>
+        <div>
           <span>{{ category.name }}: </span>
           <strong>{{ category.total | currency: 'BRL' }}</strong>
         </div>
 
-        <div class="category-progress">
-          <div class="category-progress-fill" [style.width.%]="category.percentage"></div>
+        <div>
+          <div [style.width.%]="category.percentage"></div>
         </div>
 
         <span class="subtle">

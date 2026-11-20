@@ -1,5 +1,6 @@
 .categories-list {
-  overflow-x: auto;
+  max-height: 33em;
+  overflow-y: auto;
 }
 
 .category-actions {

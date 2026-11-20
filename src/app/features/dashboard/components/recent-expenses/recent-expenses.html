@@ -3,7 +3,7 @@
 
   @if (expenses().length > 0) {
     @for (expense of expenses(); track expense.id) {
-      <div class="expense-item">
+      <div>
         <span>{{ expense.name }}: </span>
         <strong>{{ expense.amount | currency: 'BRL' }}</strong>
       </div>

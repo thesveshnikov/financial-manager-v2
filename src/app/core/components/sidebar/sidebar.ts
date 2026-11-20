@@ -7,6 +7,7 @@ import { AuthService } from '../../auth/services/auth.service';
   imports: [RouterLink, RouterLinkActive],
   selector: 'app-sidebar',
   templateUrl: './sidebar.html',
+  styleUrl: './sidebar.scss',
 })
 export class Sidebar {
   private readonly authService = inject(AuthService);
